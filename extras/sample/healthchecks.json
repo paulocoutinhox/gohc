@@ -9,15 +9,330 @@
 			]
 		},
 		{
-			"token": "google",
-			"description": "Google web site",
+			"token": "pcoutinho1",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho2",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho3",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho4",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho5",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho6",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho7",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho8",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho9",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho10",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho11",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho12",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho13",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho14",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho15",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho16",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho17",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho18",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho19",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho20",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho21",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho22",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho23",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho24",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho25",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho26",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho27",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho28",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho29",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho30",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho31",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho32",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho33",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho34",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho35",
+			"description": "Paulo Coutinho blog",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		
+		{
+			"token": "pcoutinho36",
+			"description": "Paulo Coutinho blog",
 			"ranges": [
 				5000,
 				10000
 			]
 		},
 		{
-			"token": "prsolucoes",
+			"token": "prsolucoes37",
 			"description": "PRSoluções web site",
 			"ranges": [
 				5000,
@@ -25,7 +340,7 @@
 			]
 		},
 		{
-			"token": "prsoluddcoes",
+			"token": "prsolucoes38",
 			"description": "PRSoluções web site",
 			"ranges": [
 				5000,
@@ -33,7 +348,7 @@
 			]
 		},
 		{
-			"token": "prsoludsadcoes",
+			"token": "prsolucoes39",
 			"description": "PRSoluções web site",
 			"ranges": [
 				5000,
@@ -41,279 +356,7 @@
 			]
 		},
 		{
-			"token": "prsolasdsducoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolu13232coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsol22fcucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolu423ghcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsol343hhhucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolufff55coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolu55ggcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolu444ggcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolugnrcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolsafsf3efucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoludfdecoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoluewe22coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsol21fvucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsol23wdducoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoludsfds22coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoldf222ucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolasdsad222ucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsosaasd2lucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolasdsa222ucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolu323ddfcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoludsadsdcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolusdasdsa22coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolusadsdsa2coes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolucasdsad222oes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolusdasdsdcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolucawewewoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoluwqewqeqwecoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoluasdsdascoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolucozxczxces",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "pxzcxzcrsolucoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoluxczcxccoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoludrehhhcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolucfdgdfgfdgoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsoludfgdfgcoes",
-			"description": "PRSoluções web site",
-			"ranges": [
-				5000,
-				10000
-			]
-		},
-		{
-			"token": "prsolrttrtucoes",
+			"token": "prsolucoes40",
 			"description": "PRSoluções web site",
 			"ranges": [
 				5000,

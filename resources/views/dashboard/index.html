@@ -7,6 +7,8 @@
 			<div id="healthcheck-list"></div>
 		</div>
 
+		<div class="clearfix"></div>
+
 		<div id="no-data">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -155,6 +157,7 @@
 						if (healthcheck.token == currentHealthcheck.token) {
 							healthcheck.status = currentHealthcheck.status;
 							healthcheck.ping = currentHealthcheck.ping;
+							healthcheck.description = currentHealthcheck.description;
 							break;
 						}
 					}
@@ -182,7 +185,7 @@
 						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item warning';
 						iconClass = 'icon glyphicon glyphicon-exclamation-sign';
 					} else if (healthcheck.status == Healthcheck.STATUS_ERROR) {
-						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item error';
+						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-6 healthcheck-item error';
 						iconClass = 'icon glyphicon glyphicon-remove-sign';
 					}
 

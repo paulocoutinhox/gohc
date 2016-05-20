@@ -2,7 +2,7 @@ var Healthcheck = new function () {
 
 	this.STATUS_SUCCESS = "success";
 	this.STATUS_WARNING = "warning";
-	this.STATUS_ERROR   = "error";
+	this.STATUS_ERROR = "error";
 
 	this.addHealthcheckToHTML = function (healthcheck) {
 		var html = '' +
@@ -13,7 +13,7 @@ var Healthcheck = new function () {
 			'    </div>' +
 			'</div>';
 
-		$('#healthcheck-list').prepend(html);
+		$('#healthcheck-list').append(html);
 	};
 
 	this.addHealthcheckToHTMLAsListItem = function (healthcheck) {
@@ -27,18 +27,20 @@ var Healthcheck = new function () {
 			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item warning';
 			iconClass = 'icon glyphicon glyphicon-exclamation-sign';
 		} else if (healthcheck.status == Healthcheck.STATUS_ERROR) {
-			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item error';
+			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-6 healthcheck-item error';
 			iconClass = 'icon glyphicon glyphicon-remove-sign';
 		}
 
 		var html = '' +
 			'<div id="healthcheck-row-' + healthcheck.token + '" class="' + itemClass + '">' +
+			'    <div>' +
 			'    <p class="' + iconClass + '"></p>' +
 			'    <h5 class="title">' + healthcheck.description + '</h5>' +
-			'    <p class="ping ph-healthcheck-ping-' + healthcheck.token + '">' + Util.msToHumanText(healthcheck.ping) + '</p>' +
+			'    <h6 class="ping ph-healthcheck-ping-' + healthcheck.token + '">' + Util.msToHumanText(healthcheck.ping) + '</h6>' +
+			'    </div>' +
 			'</div>';
 
-		$('#healthcheck-list').prepend(html);
+		$('#healthcheck-list').append(html);
 	};
 
 	this.clearHealthcheckList = function () {

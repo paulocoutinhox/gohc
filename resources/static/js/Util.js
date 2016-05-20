@@ -293,15 +293,15 @@ var Util = new function () {
 		if (ms < 1000) {
 			return ms + " ms";
 		} else if (ms < 60000) {
-			return Math.floor(ms/1000) + " sec";
+			return Math.floor(ms / 1000) + " sec";
 		} else if (ms < 120000) {
 			return "1 minute ago";
 		} else if (ms < 360000) {
-			return Math.floor(ms / 60000) + " minutes ago";
+			return Math.floor(ms / 60000) + " minutes";
 		} else if (ms < 7200000) {
 			return "1 hour ago";
 		} else {
-			return Math.floor(ms / 3600000) + " hours ago";
+			return Math.floor(ms / 3600000) + " hours";
 		}
 	};
 

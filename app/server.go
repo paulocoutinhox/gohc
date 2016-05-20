@@ -59,6 +59,7 @@ func (This *WebServer) LoadHealthchecks() {
 
 	for i, healthcheck := range healthcheckFile.Healthchecks {
 		healthcheck.SetStatusSuccess()
+		healthcheck.UpdateLastPingData()
 
 		if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
 			log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)

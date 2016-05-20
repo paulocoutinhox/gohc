@@ -15,5 +15,7 @@ func (This *DashboardController) Register() {
 }
 
 func (This *DashboardController) HomeIndex(c *gin.Context) {
-	util.RenderTemplate(c.Writer, "dashboard/index", nil)
+	params := map[string]string{}
+	params["ContainerClass"] = "container-dashboard"
+	util.RenderTemplate(c.Writer, "dashboard/index", params)
 }

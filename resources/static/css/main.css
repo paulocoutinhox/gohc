@@ -185,6 +185,10 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 	padding: 0;
 }
 
+.wrap > .container-dashboard {
+	padding: 0;
+}
+
 .footer {
 	height: 60px;
 	background-color: #f5f5f5;
@@ -408,28 +412,30 @@ a.desc:after {
 }
 
 .healthcheck-item {
-	border-radius: 5px;
-	padding: 15px 20px;
-	float: left;
-	list-style: none;
-	border: 1px solid #777;
-	margin: 10px;
-	text-align: center;
+	padding: 10px;
 }
 
-.healthcheck-item.success {
+.healthcheck-item div {
+	border-radius: 5px;
+	padding: 10px;
+	border: 1px solid #777;
+	text-align: center;
+	width: 100%;
+}
+
+.healthcheck-item.success div {
 	background-color: #1ab394;
 	color: #ffffff;
 	border-color: #1ab394;
 }
 
-.healthcheck-item.warning {
+.healthcheck-item.warning div {
 	background-color: #f8ac59;
 	color: #ffffff;
 	border-color: #f8ac59;
 }
 
-.healthcheck-item.error {
+.healthcheck-item.error div {
 	background-color: #ed5565;
 	color: #ffffff;
 	border-color: #ed5565;
@@ -445,5 +451,8 @@ a.desc:after {
 	padding: 0px;
 	margin: 0;
 	font-size: 30px;
+}
 
+.healthcheck-item .ping {
+	margin: 0;
 }
