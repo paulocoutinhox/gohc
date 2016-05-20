@@ -38,69 +38,6 @@
 
 <!-- STARTUP -->
 <script>
-	function hasHealthcheckById(healthcheckId) {
-		var healthcheck = getHealthcheckById(healthcheckId);
-
-		return (!Util.isNullOrUndefined(healthcheck));
-	}
-
-	function addHealthcheck(healthcheck) {
-		if (!hasHealthcheckById(healthcheck.token)) {
-			healthcheck.lastStatus = "";
-			healthcheckList.push(healthcheck);
-		}
-	}
-
-	function getHealthcheckById(healthcheckId) {
-		for (var x = 0; x < healthcheckList.length; x++) {
-			if (healthcheckList[x].token == healthcheckId) {
-				return healthcheckList[x];
-			}
-		}
-
-		return null;
-	}
-
-	function getHealthcheckIndexById(healthcheckId) {
-		for (var x = 0; x < healthcheckList.length; x++) {
-			if (healthcheckList[x].token == healthcheckId) {
-				return x;
-			}
-		}
-
-		return null;
-	}
-
-	function clearHealthcheckList() {
-		healthcheckList = [];
-	}
-
-	function removeHealthcheckById(healthcheckId) {
-		var healthcheckIndex = getHealthcheckIndexById(healthcheckId);
-
-		if (!Util.isNullOrUndefined(healthcheckIndex)) {
-			healthcheckList.splice(healthcheckIndex, 1);
-		}
-	}
-
-	function getHealthcheckLastStatusById(healthcheckId) {
-		var healthcheck = getHealthcheckById(healthcheckId);
-
-		if (!Util.isNullOrUndefined(healthcheck)) {
-			return healthcheck.lastStatus;
-		}
-
-		return null;
-	}
-
-	function updateHealthcheckLastStatusById(healthcheckId, status) {
-		var healthcheck = getHealthcheckById(healthcheckId);
-
-		if (!Util.isNullOrUndefined(healthcheck)) {
-			healthcheck.lastStatus = status;
-		}
-	}
-
 	function load() {
 		Healthcheck.list(function () {
 			// ?
@@ -113,8 +50,8 @@
 				// check for invalid list
 				if (Util.isNullOrUndefined(list)) {
 					Util.showNoData();
-					Healthcheck.clearHealthcheckList();
-					clearHealthcheckList();
+					HealthcheckList.clearHealthcheckHtmlListItem();
+					HealthcheckList.clearList();
 					autoLoad();
 					return;
 				}
@@ -124,8 +61,8 @@
 					for (var x = 0; x < list.length; x++) {
 						var healthcheck = list[x];
 
-						if (!hasHealthcheckById(healthcheck.token)) {
-							addHealthcheck(healthcheck);
+						if (!HealthcheckList.hasHealthcheckById(healthcheck.token)) {
+							HealthcheckList.addHealthcheck(healthcheck);
 						}
 					}
 				}
@@ -143,7 +80,7 @@
 					}
 
 					if (!found) {
-						removeHealthcheckById(healthcheck.token);
+						HealthcheckList.removeHealthcheckById(healthcheck.token);
 						$("#healthcheck-row-" + healthcheck.token).remove();
 					}
 				}
@@ -161,7 +98,7 @@
 					}
 
 					if (!found) {
-						removeHealthcheckById(healthcheck.token);
+						HealthcheckList.removeHealthcheckById(healthcheck.token);
 						$("#healthcheck-row-" + healthcheck.token).remove();
 					}
 				}
@@ -209,12 +146,12 @@
 						iconClass = 'icon glyphicon glyphicon-remove-sign';
 					}
 
-					var currentHealthcheckStatus = getHealthcheckLastStatusById(healthcheck.token);
+					var currentHealthcheckStatus = HealthcheckList.getHealthcheckLastStatusById(healthcheck.token);
 
 					if (currentHealthcheckStatus != healthcheck.status) {
 						$("#healthcheck-row-" + healthcheck.token + "").attr('class', itemClass);
 						$("#healthcheck-row-" + healthcheck.token + " > .icon").attr('class', iconClass);
-						updateHealthcheckLastStatusById(healthcheck.token, healthcheck.status);
+						HealthcheckList.updateHealthcheckLastStatusById(healthcheck.token, healthcheck.status);
 					}
 				}
 
@@ -228,8 +165,8 @@
 			}
 
 			if (errorMessage) {
-				Healthcheck.clearHealthcheckListItem();
-				clearHealthcheckList();
+				HealthcheckList.clearHealthcheckHtmlListItem();
+				HealthcheckList.clearList();
 				Util.showErrorData(errorMessage);
 			}
 
@@ -237,8 +174,8 @@
 		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
 			Util.showNoData();
-			Healthcheck.clearHealthcheckListItem();
-			clearHealthcheckList();
+			HealthcheckList.clearHealthcheckHtmlListItem();
+			HealthcheckList.clearList();
 			autoLoad();
 		});
 	}

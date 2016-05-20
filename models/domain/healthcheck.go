@@ -5,29 +5,45 @@ import (
 )
 
 const (
-	CHECK_STATUS_SUCCESS = "success"
-	CHECK_STATUS_WARNING = "warning"
-	CHECK_STATUS_ERROR   = "error"
+	HEALTHCHECK_STATUS_SUCCESS = "success"
+	HEALTHCHECK_STATUS_WARNING = "warning"
+	HEALTHCHECK_STATUS_ERROR   = "error"
+
+	HEALTHCHECK_TYPE_PING  = "ping"
+	HEALTHCHECK_TYPE_RANGE = "range"
 )
 
 type Healthcheck struct {
-	Token       string  `json:"token"`
-	Description string  `json:"description"`
-	LastPingAt  int64   `json:"lastPingAt"`
-	Ping        int64   `json:"ping"`
-	Ranges      []int64 `json:"ranges"`
-	Status      string  `json:"status"`
+	Token       string    `json:"token"`
+	Description string    `json:"description"`
+	LastPingAt  int64     `json:"lastPingAt"`
+	LastRangeAt int64     `json:"lastRangeAt"`
+	Ping        int64     `json:"ping"`
+	Range       float64   `json:"range"`
+	Ranges      []float64 `json:"ranges"`
+	Status      string    `json:"status"`
+	Type        string    `json:"type"`
 }
 
 func (This *Healthcheck) Run() {
-	This.UpdatePing()
+	if This.Type == HEALTHCHECK_TYPE_PING {
+		This.UpdatePing()
 
-	if This.InSuccessRange() {
-		This.Status = CHECK_STATUS_SUCCESS
-	} else if This.InWarningRange() {
-		This.Status = CHECK_STATUS_WARNING
-	} else if This.InErrorRange() {
-		This.Status = CHECK_STATUS_ERROR
+		if This.InSuccessRange(float64(This.Ping)) {
+			This.Status = HEALTHCHECK_STATUS_SUCCESS
+		} else if This.InWarningRange(float64(This.Ping)) {
+			This.Status = HEALTHCHECK_STATUS_WARNING
+		} else if This.InErrorRange(float64(This.Ping)) {
+			This.Status = HEALTHCHECK_STATUS_ERROR
+		}
+	} else if This.Type == HEALTHCHECK_TYPE_RANGE {
+		if This.InSuccessRange(This.Range) {
+			This.Status = HEALTHCHECK_STATUS_SUCCESS
+		} else if This.InWarningRange(This.Range) {
+			This.Status = HEALTHCHECK_STATUS_WARNING
+		} else if This.InErrorRange(This.Range) {
+			This.Status = HEALTHCHECK_STATUS_ERROR
+		}
 	}
 }
 
@@ -38,42 +54,48 @@ func (This *Healthcheck) UpdateLastPingData() {
 	This.LastPingAt = currentTime
 }
 
+func (This *Healthcheck) UpdateLastRangeData(newRange float64) {
+	currentTime := This.GetCurrentTimeInMS()
+	This.Range = newRange
+	This.LastRangeAt = currentTime
+}
+
 func (This *Healthcheck) UpdatePing() {
 	currentTime := This.GetCurrentTimeInMS()
 	lastPingTime := This.LastPingAt
 	This.Ping = currentTime - lastPingTime
 }
 
-func (This *Healthcheck) InSuccessRange() bool {
-	return (This.Ping <= This.Ranges[0])
+func (This *Healthcheck) InSuccessRange(value float64) bool {
+	return (value <= This.Ranges[0])
 }
 
-func (This *Healthcheck) InWarningRange() bool {
-	if This.Ping <= This.Ranges[0] {
+func (This *Healthcheck) InWarningRange(value float64) bool {
+	if value <= This.Ranges[0] {
 		return false
 	}
 
-	return (This.Ping <= This.Ranges[1])
+	return (value <= This.Ranges[1])
 }
 
-func (This *Healthcheck) InErrorRange() bool {
-	if This.Ping <= This.Ranges[0] {
+func (This *Healthcheck) InErrorRange(value float64) bool {
+	if value <= This.Ranges[0] {
 		return false
 	}
 
-	return (This.Ping > This.Ranges[1])
+	return (value > This.Ranges[1])
 }
 
 func (This *Healthcheck) SetStatusSuccess() {
-	This.Status = CHECK_STATUS_SUCCESS
+	This.Status = HEALTHCHECK_STATUS_SUCCESS
 }
 
 func (This *Healthcheck) SetStatusWarning() {
-	This.Status = CHECK_STATUS_WARNING
+	This.Status = HEALTHCHECK_STATUS_WARNING
 }
 
 func (This *Healthcheck) SetStatusError() {
-	This.Status = CHECK_STATUS_ERROR
+	This.Status = HEALTHCHECK_STATUS_ERROR
 }
 
 func (This *Healthcheck) GetCurrentTimeInMS() int64 {

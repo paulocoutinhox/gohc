@@ -17,6 +17,7 @@ format:
 	${GOFMT} app/server.go
 	${GOFMT} controllers/api.go
 	${GOFMT} controllers/dashboard.go
+	${GOFMT} controllers/healthcheck.go
 	${GOFMT} controllers/home.go
 	${GOFMT} models/domain/healthcheck.go
 	${GOFMT} models/domain/healthchecks_file.go

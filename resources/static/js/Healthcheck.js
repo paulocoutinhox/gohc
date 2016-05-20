@@ -44,14 +44,6 @@ var Healthcheck = new function () {
 		$('#healthcheck-list').append(html);
 	};
 
-	this.clearHealthcheckList = function () {
-		$('.healthcheck-row').remove();
-	};
-
-	this.clearHealthcheckListItem = function () {
-		$('.healthcheck-item').remove();
-	};
-
 	this.list = function (preProcess, success, error) {
 		if (!Util.isNullOrUndefined(preProcess)) {
 			preProcess();
