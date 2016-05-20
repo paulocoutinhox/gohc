@@ -42,7 +42,7 @@ func (This *WebServer) CreateBasicRoutes() {
 func (This *WebServer) LoadHealthchecks() {
 	fileName := This.WorkspaceDir + "/healthchecks.json"
 
-	log.Println("Loading healthcheck list file: %s", fileName)
+	log.Println("Loading healthcheck list file: %v", fileName)
 	file, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
@@ -67,7 +67,7 @@ func (This *WebServer) LoadHealthchecks() {
 
 	processor.Healthchecks = healthcheckFile.Healthchecks
 
-	log.Println("Healthchecks file (%s) loaded", fileName)
+	log.Println("Healthchecks file (%v) loaded", fileName)
 }
 
 func (This *WebServer) LoadConfiguration() {
