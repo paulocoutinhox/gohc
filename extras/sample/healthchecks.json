@@ -1,0 +1,28 @@
+{
+	"healthchecks": [
+		{
+			"token": "site",
+			"description": "My web site",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		{
+			"token": "google",
+			"description": "Google web site",
+			"ranges": [
+				5000,
+				10000
+			]
+		},
+		{
+			"token": "prsolucoes",
+			"description": "PRSoluções web site",
+			"ranges": [
+				5000,
+				10000
+			]
+		}
+	]
+}
