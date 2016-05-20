@@ -9,8 +9,9 @@ const (
 	HEALTHCHECK_STATUS_WARNING = "warning"
 	HEALTHCHECK_STATUS_ERROR   = "error"
 
-	HEALTHCHECK_TYPE_PING  = "ping"
-	HEALTHCHECK_TYPE_RANGE = "range"
+	HEALTHCHECK_TYPE_PING   = "ping"
+	HEALTHCHECK_TYPE_RANGE  = "range"
+	HEALTHCHECK_TYPE_MANUAL = "manual"
 )
 
 type Healthcheck struct {
