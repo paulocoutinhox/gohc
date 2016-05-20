@@ -7,16 +7,16 @@ import (
 const (
 	CHECK_STATUS_SUCCESS = "success"
 	CHECK_STATUS_WARNING = "warning"
-	CHECK_STATUS_ERROR = "error"
+	CHECK_STATUS_ERROR   = "error"
 )
 
 type Healthcheck struct {
-	Token       string        `json:"token"`
-	Description string        `json:"description"`
-	LastPingAt  int64         `json:"lastPingAt"`
-	Ping        int64         `json:"ping"`
-	Ranges      []int64       `json:"ranges"`
-	Status      string        `json:"status"`
+	Token       string  `json:"token"`
+	Description string  `json:"description"`
+	LastPingAt  int64   `json:"lastPingAt"`
+	Ping        int64   `json:"ping"`
+	Ranges      []int64 `json:"ranges"`
+	Status      string  `json:"status"`
 }
 
 func (This *Healthcheck) Run() {

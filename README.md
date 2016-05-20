@@ -3,22 +3,13 @@
 
 # GoHC
 
-GoHC was made to be a simple continuous integration system made with Go (Golang).
+GoHC was made to be a simple and light healthcheck system made with Go (Golang).
 
-It use a simple plugin mechanism that let you use some different plugins to execute tasks. Today we have two main plugins:  
-- CLI = Execute anything from command line  
-- JS = Execute a javascript file
-  
 Some project advantages:
-- With javascript you can create scripts that have own logic inside and use bultin function like: http request, regexp, command line execution, json parser and more - dont need use bash script for it
-- Everything is a simples JSON file - yes, you dont need one database!
-- From project to results - you can versioning everything if you want
-- You dont need reload the server for nothing - unless a crash or bug :)
-- It use a workspace directory, so you can have a lot of workspaces or one for all projects
-- The web interface if nice - made with bootstrap - all results need send HTML
-- Each job execution has progress, html ouput compatible with bootstrap, status, etc
-- Everything work with API and you can consume using external tools
-- It is open-source - you can collaborate
+- Lightweight (< 5 MB RAM memory)
+- Healthcheck list is a simples JSON file - yes, you dont need one database!
+- The web interface is nice - made with bootstrap and AJAX
+- It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
 
 # Configuration
@@ -36,7 +27,7 @@ resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/gohc
 
 # Sample files
 
-I have created a sample project file, a sample config file and a sample javascript file. Check it on **extras/sample** directory.
+I have created a sample healthcheck file and a sample config file. Check it on **extras/sample** directory.
 
 # Starting
 

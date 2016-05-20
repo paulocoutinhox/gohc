@@ -1,18 +1,18 @@
 package processor
 
 import (
+	"errors"
 	"github.com/prsolucoes/gohc/models/domain"
 	"log"
 	"time"
-	"errors"
 )
 
 var (
-	Healthchecks            []*domain.Healthcheck
-	CanRunHealthchecks bool
+	Healthchecks                []*domain.Healthcheck
+	CanRunHealthchecks          bool
 	HealthchecksProcessorTicker *time.Ticker
-	StartedAt int64
-	WarmTime int64
+	StartedAt                   int64
+	WarmTime                    int64
 )
 
 func StartHealthcheckProcessor() {

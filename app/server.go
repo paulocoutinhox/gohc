@@ -1,14 +1,14 @@
 package app
 
 import (
+	"encoding/json"
 	"flag"
-	"log"
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
 	"github.com/prsolucoes/gohc/models/domain"
-	"io/ioutil"
-	"encoding/json"
 	"github.com/prsolucoes/gohc/processor"
+	"io/ioutil"
+	"log"
 	"strconv"
 )
 
@@ -35,7 +35,7 @@ func NewWebServer() *WebServer {
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir + "/static")
+	This.Router.Static("/static", This.ResourcesDir+"/static")
 	log.Println("Router creation : OK")
 }
 
