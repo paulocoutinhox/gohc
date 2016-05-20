@@ -320,14 +320,6 @@ a.desc:after {
 	height: 32px;
 }
 
-.project-task-row .list-group-item-heading {
-	margin-right: 70px;
-}
-
-.project-task-row .list-group-item-text {
-	margin-right: 70px;
-}
-
 .home-index .logo {
 	width: 200px;
 }
@@ -336,10 +328,6 @@ a.desc:after {
 	width: 28px;
 	margin-top: -5px;
 	margin-right: 10px;
-}
-
-.ph-project-task-job-last-result-progress .progress {
-	margin-bottom: 0;
 }
 
 .output-content-line-error {
@@ -365,10 +353,6 @@ a.desc:after {
 
 .tab-pane-output-group .panel .panel-body {
 	word-wrap: break-word;
-}
-
-#job-list .progress {
-	margin-bottom: 0;
 }
 
 .pie-chart-serie-warning {
@@ -421,4 +405,45 @@ a.desc:after {
 	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
 	-moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.healthcheck-item {
+	border-radius: 5px;
+	padding: 15px 20px;
+	float: left;
+	list-style: none;
+	border: 1px solid #777;
+	margin: 10px;
+	text-align: center;
+}
+
+.healthcheck-item.success {
+	background-color: #1ab394;
+	color: #ffffff;
+	border-color: #1ab394;
+}
+
+.healthcheck-item.warning {
+	background-color: #f8ac59;
+	color: #ffffff;
+	border-color: #f8ac59;
+}
+
+.healthcheck-item.error {
+	background-color: #ed5565;
+	color: #ffffff;
+	border-color: #ed5565;
+}
+
+.healthcheck-item .title {
+	line-height: 1.5em;
+	height: 3em;
+	overflow: hidden;
+}
+
+.healthcheck-item .icon {
+	padding: 0px;
+	margin: 0;
+	font-size: 30px;
+
 }

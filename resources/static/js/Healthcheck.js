@@ -9,15 +9,33 @@ var Healthcheck = new function () {
 			'<div id="healthcheck-row-' + healthcheck.token + '" class="healthcheck-row list-group-item">' +
 			'    <h4 class="list-group-item-heading">' + healthcheck.description + '</h4>' +
 			'    <div class="list-group-item-text">' +
-			//'        <div><strong>Job:</strong> <span class="ph-job-id-' + job.token + '"></span></div>' +
-			//'        <div><strong>Created at:</strong> <span class="ph-job-created-at-' + job.token + '"></span></div>' +
-			//'        <div><strong>Started at:</strong> <span class="ph-job-started-at-' + job.token + '"></span></div>' +
-			//'        <div><strong>Finished at:</strong> <span class="ph-job-finished-at-' + job.token + '"></span></div>' +
-			//'        <div><strong>Duration:</strong> <span class="ph-healthcheck-duration-' + healthcheck.token + '"></span></div>' +
 			'        <div><strong>Status:</strong> <span class="ph-healthcheck-status-' + healthcheck.token + '"></span></div>' +
-			//'        <div><strong>Progress:</strong> <span class="ph-healthcheck-progress-' + healthcheck.token + '">' +
-			'       </span></div>' +
 			'    </div>' +
+			'</div>';
+
+		$('#healthcheck-list').prepend(html);
+	};
+
+	this.addHealthcheckToHTMLAsListItem = function (healthcheck) {
+		var itemClass = '';
+		var iconClass = '';
+
+		if (healthcheck.status == Healthcheck.STATUS_SUCCESS) {
+			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item success';
+			iconClass = 'icon glyphicon glyphicon-ok-sign';
+		} else if (healthcheck.status == Healthcheck.STATUS_WARNING) {
+			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item warning';
+			iconClass = 'icon glyphicon glyphicon-exclamation-sign';
+		} else if (healthcheck.status == Healthcheck.STATUS_ERROR) {
+			itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item error';
+			iconClass = 'icon glyphicon glyphicon-remove-sign';
+		}
+
+		var html = '' +
+			'<div id="healthcheck-row-' + healthcheck.token + '" class="' + itemClass + '">' +
+			'    <p class="' + iconClass + '"></p>' +
+			'    <h5 class="title">' + healthcheck.description + '</h5>' +
+			'    <p class="ping ph-healthcheck-ping-' + healthcheck.token + '">' + Util.msToHumanText(healthcheck.ping) + '</p>' +
 			'</div>';
 
 		$('#healthcheck-list').prepend(html);

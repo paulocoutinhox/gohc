@@ -1,10 +1,18 @@
 {{define "content"}}
-<div class="dashboard-index">
+<div class="healthcheck-list">
 
-	<div>
+	<div class="col-md-8 col-lg-8">
+		<!-- OPTIONS -->
+		<div id="options-container" class="panel panel-default hiddenContent">
+			<div class="panel-body">
+				<h3 class="options-container-title">Healthcheck List</h3>
+				<button type="button" class="btn btn-default" onclick="back()">Back</button>
+			</div>
+		</div>
+
 		<!-- DATA -->
 		<div id="data">
-			<div id="healthcheck-list"></div>
+			<div id="healthcheck-list" class="list-group"></div>
 		</div>
 
 		<div id="no-data">
@@ -26,6 +34,31 @@
 		</div>
 
 		<div id="loading-data">
+			<div class="panel panel-default">
+				<div class="panel-body">Loading...</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-lg-4">
+		<div id="graph-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Healthcheck graph</h3>
+					<br/>
+					<div class="ct-chart ct-perfect-fourth"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-no-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>No healthchecks for graph</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-loading-data">
 			<div class="panel panel-default">
 				<div class="panel-body">Loading...</div>
 			</div>
@@ -111,6 +144,7 @@
 				// check for invalid list
 				if (Util.isNullOrUndefined(list)) {
 					Util.showNoData();
+					Util.showNoData('graph');
 					Healthcheck.clearHealthcheckList();
 					clearHealthcheckList();
 					autoLoad();
@@ -154,44 +188,39 @@
 
 						if (healthcheck.token == currentHealthcheck.token) {
 							healthcheck.status = currentHealthcheck.status;
-							healthcheck.ping = currentHealthcheck.ping;
 							break;
 						}
 					}
 				}
 
+				// add html for healthcheck if not exists
 				for (var x = 0; x < healthcheckList.length; x++) {
 					var healthcheck = healthcheckList[x];
 
-					// add html for healthcheck if not exists
 					if (!$("#healthcheck-row-" + healthcheck.token).length > 0) {
-						Healthcheck.addHealthcheckToHTMLAsListItem(healthcheck);
+						Healthcheck.addHealthcheckToHTML(healthcheck);
 					}
 
 					// set healthcheck data on html
 					$(".ph-healthcheck-token-" + healthcheck.token).html(healthcheck.token);
-					$(".ph-healthcheck-ping-" + healthcheck.token).html(Util.msToHumanText(healthcheck.ping));
 
-					var itemClass = '';
-					var iconClass = '';
+					var statusHTML = "";
 
 					if (healthcheck.status == Healthcheck.STATUS_SUCCESS) {
-						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item success';
-						iconClass = 'icon glyphicon glyphicon-ok-sign';
+						statusHTML += '<span class="label label-success">' + healthcheck.status + '</span>';
 					} else if (healthcheck.status == Healthcheck.STATUS_WARNING) {
-						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item warning';
-						iconClass = 'icon glyphicon glyphicon-exclamation-sign';
+						statusHTML += '<span class="label label-warning">' + healthcheck.status + '</span>';
 					} else if (healthcheck.status == Healthcheck.STATUS_ERROR) {
-						itemClass = 'col-lg-2 col-md-3 col-sm-4 col-xs-12 healthcheck-item error';
-						iconClass = 'icon glyphicon glyphicon-remove-sign';
+						statusHTML += '<span class="label label-danger">' + healthcheck.status + '</span>';
+					} else {
+						statusHTML += '<span class="label label-success">' + healthcheck.status + '</span>';
 					}
 
 					var currentHealthcheckStatus = getHealthcheckLastStatusById(healthcheck.token);
 
 					if (currentHealthcheckStatus != healthcheck.status) {
-						$("#healthcheck-row-" + healthcheck.token + "").attr('class', itemClass);
-						$("#healthcheck-row-" + healthcheck.token + " > .icon").attr('class', iconClass);
 						updateHealthcheckLastStatusById(healthcheck.token, healthcheck.status);
+						$(".ph-healthcheck-status-" + healthcheck.token).html(statusHTML);
 					}
 				}
 
@@ -200,6 +229,78 @@
 				} else {
 					Util.showNoData();
 				}
+
+				// create graph
+
+				var graphTotalSuccess = 0;
+				var graphTotalWarning = 0;
+				var graphTotalError = 0;
+
+				for (var x = 0; x < healthcheckList.length; x++) {
+					var healthcheck = healthcheckList[x];
+
+					if (healthcheck.status == Healthcheck.STATUS_SUCCESS) {
+						graphTotalSuccess = graphTotalSuccess + 1;
+					} else if (healthcheck.status == Healthcheck.STATUS_WARNING) {
+						graphTotalWarning = graphTotalWarning + 1;
+					} else if (healthcheck.status == Healthcheck.STATUS_ERROR) {
+						graphTotalError = graphTotalError + 1;
+					}
+				}
+
+				var graphTotal = graphTotalSuccess + graphTotalWarning + graphTotalError;
+
+				if (graphTotal == 0) {
+					Util.showNoData('graph');
+				} else {
+					var graphDataSeries = [];
+					var graphDataLabels = [];
+
+					if (graphTotalSuccess > 0) {
+						graphDataSeries.push({
+							value: graphTotalSuccess,
+							className: "pie-chart-serie-success",
+							name: "success"
+						});
+						graphDataLabels.push('Success');
+					}
+
+					if (graphTotalWarning > 0) {
+						graphDataSeries.push({
+							value: graphTotalWarning,
+							className: "pie-chart-serie-warning",
+							name: "warning"
+						});
+						graphDataLabels.push('Warning');
+					}
+
+					if (graphTotalError > 0) {
+						graphDataSeries.push({
+							value: graphTotalError,
+							className: "pie-chart-serie-error",
+							name: "error"
+						});
+						graphDataLabels.push('Error');
+					}
+
+					var graphData = {
+						labels: graphDataLabels,
+						series: graphDataSeries
+					};
+
+					var options = {
+						labelInterpolationFnc: function (value) {
+							return value
+						},
+						donut: true
+					};
+
+					new Chartist.Pie('.ct-chart', graphData, options);
+
+					Util.showData('graph');
+				}
+
+				Util.showOptionsContainer();
 			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
@@ -214,6 +315,7 @@
 		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
 			Util.showNoData();
+			Util.showNoData('graph');
 			Healthcheck.clearHealthcheckList();
 			clearHealthcheckList();
 			autoLoad();
