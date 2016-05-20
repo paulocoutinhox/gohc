@@ -77,6 +77,8 @@ func (This *WebServer) LoadHealthchecks() {
 		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_MANUAL {
 			healthcheck.SetStatusSuccess()
 			healthcheck.SetLastUpdateAtCurrentTime()
+		} else {
+			log.Fatalf("Healthcheck (Token: %v, Index: %v) has invalid type", healthcheck.Token, i)
 		}
 	}
 
