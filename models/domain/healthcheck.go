@@ -15,15 +15,14 @@ const (
 )
 
 type Healthcheck struct {
-	Token       string    `json:"token"`
-	Description string    `json:"description"`
-	LastPingAt  int64     `json:"lastPingAt"`
-	LastRangeAt int64     `json:"lastRangeAt"`
-	Ping        int64     `json:"ping"`
-	Range       float64   `json:"range"`
-	Ranges      []float64 `json:"ranges"`
-	Status      string    `json:"status"`
-	Type        string    `json:"type"`
+	Token        string    `json:"token"`
+	Description  string    `json:"description"`
+	LastUpdateAt int64     `json:"lastUpdateAt"`
+	Ping         int64     `json:"ping"`
+	Range        float64   `json:"range"`
+	Ranges       []float64 `json:"ranges"`
+	Status       string    `json:"status"`
+	Type         string    `json:"type"`
 }
 
 func (This *Healthcheck) Run() {
@@ -48,22 +47,26 @@ func (This *Healthcheck) Run() {
 	}
 }
 
+func (This *Healthcheck) SetLastUpdateAtCurrentTime() {
+	This.LastUpdateAt = This.GetCurrentTimeInMS()
+}
+
 func (This *Healthcheck) UpdateLastPingData() {
 	currentTime := This.GetCurrentTimeInMS()
-	lastPingTime := This.LastPingAt
+	lastPingTime := This.LastUpdateAt
 	This.Ping = currentTime - lastPingTime
-	This.LastPingAt = currentTime
+	This.LastUpdateAt = currentTime
 }
 
 func (This *Healthcheck) UpdateLastRangeData(newRange float64) {
 	currentTime := This.GetCurrentTimeInMS()
 	This.Range = newRange
-	This.LastRangeAt = currentTime
+	This.LastUpdateAt = currentTime
 }
 
 func (This *Healthcheck) UpdatePing() {
 	currentTime := This.GetCurrentTimeInMS()
-	lastPingTime := This.LastPingAt
+	lastPingTime := This.LastUpdateAt
 	This.Ping = currentTime - lastPingTime
 }
 

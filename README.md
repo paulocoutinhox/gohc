@@ -68,7 +68,7 @@ Today, only some functions are implemented. If you need one, you can make a pull
 
 # Supported By Jetbrains IntelliJ IDEA
 
-![alt text](https://github.com/prsolucoes/gohc/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
+![Supported By Jetbrains IntelliJ IDEA](https://github.com/prsolucoes/gohc/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
 
 # Author WebSite
 
@@ -77,3 +77,13 @@ Today, only some functions are implemented. If you need one, you can make a pull
 # License
 
 MIT
+
+# Screenshots
+
+![SS1](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot1.png "Screenshot 1")
+![SS2](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot2.png "Screenshot 2")
+![SS3](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot3.png "Screenshot 3")
+![SS4](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot4.png "Screenshot 4")
+![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
+
+

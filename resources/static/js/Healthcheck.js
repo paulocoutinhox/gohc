@@ -12,18 +12,21 @@ var Healthcheck = new function () {
 		var html = '' +
 			'<div id="healthcheck-row-' + healthcheck.token + '" class="healthcheck-row list-group-item">' +
 			'    <h4 class="list-group-item-heading">' + healthcheck.description + '</h4>' +
-			'    <div class="list-group-item-text">' +
-			'        <div><strong>Status:</strong> <span class="ph-healthcheck-status-' + healthcheck.token + '"></span></div>';
+			'    <div class="list-group-item-text">';
 
 		if (healthcheck.type == this.HEALTHCHECK_TYPE_PING) {
+			html += '<div><strong>Type:</strong> <span class="ph-healthcheck-value-type-' + healthcheck.token + '"></span>Ping</div>';
 			html += '<div><strong>Ping:</strong> <span class="ph-healthcheck-value-ping-' + healthcheck.token + '"></span></div>';
 		} else if (healthcheck.type == this.HEALTHCHECK_TYPE_RANGE) {
+			html += '<div><strong>Type:</strong> <span class="ph-healthcheck-value-type-' + healthcheck.token + '"></span>Range</div>';
 			html += '<div><strong>Range:</strong> <span class="ph-healthcheck-value-range-' + healthcheck.token + '"></span></div>';
 		} else if (healthcheck.type == this.HEALTHCHECK_TYPE_MANUAL) {
+			html += '<div><strong>Type:</strong> <span class="ph-healthcheck-value-type-' + healthcheck.token + '"></span>Manual</div>';
 			html += '<div><strong>Status:</strong> <span class="ph-healthcheck-value-status-' + healthcheck.token + '"></span></div>';
 		}
 
 		html += '' +
+			'        <div><strong>Status:</strong> <span class="ph-healthcheck-status-' + healthcheck.token + '"></span></div>' +
 			'    </div>' +
 			'</div>';
 
@@ -48,14 +51,17 @@ var Healthcheck = new function () {
 		var html = '' +
 			'<div id="healthcheck-row-' + healthcheck.token + '" class="' + itemClass + '">' +
 			'    <div>' +
-			'    <p class="' + iconClass + '"></p>' +
-			'    <h5 class="title">' + healthcheck.description + '</h5>';
+			'        <p class="' + iconClass + '"></p>' +
+			'        <h5 class="title">' + healthcheck.description + '</h5>';
 
 		if (healthcheck.type == this.HEALTHCHECK_TYPE_PING) {
+			html += '<small class="type ph-healthcheck-value-type-' + healthcheck.token + '">Ping</small>';
 			html += '<h6 class="ping ph-healthcheck-value-ping-' + healthcheck.token + '">' + Util.msToHumanText(healthcheck.ping) + '</h6>';
 		} else if (healthcheck.type == this.HEALTHCHECK_TYPE_RANGE) {
+			html += '<small class="type ph-healthcheck-value-type-' + healthcheck.token + '">Range</small>';
 			html += '<h6 class="ping ph-healthcheck-value-range-' + healthcheck.token + '">' + healthcheck.range + '</h6>';
 		} else if (healthcheck.type == this.HEALTHCHECK_TYPE_MANUAL) {
+			html += '<small class="type ph-healthcheck-value-type-' + healthcheck.token + '">Manual</small>';
 			html += '<h6 class="ping ph-healthcheck-value-status-' + healthcheck.token + '">' + healthcheck.status + '</h6>';
 		}
 

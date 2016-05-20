@@ -58,11 +58,25 @@ func (This *WebServer) LoadHealthchecks() {
 	}
 
 	for i, healthcheck := range healthcheckFile.Healthchecks {
-		healthcheck.SetStatusSuccess()
-		healthcheck.UpdateLastPingData()
+		if healthcheck.Type == domain.HEALTHCHECK_TYPE_PING {
+			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
+				log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)
+			}
 
-		if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
-			log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)
+			healthcheck.SetStatusSuccess()
+			healthcheck.SetLastUpdateAtCurrentTime()
+			healthcheck.UpdateLastPingData()
+		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_RANGE {
+			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
+				log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)
+			}
+
+			healthcheck.SetStatusSuccess()
+			healthcheck.SetLastUpdateAtCurrentTime()
+			healthcheck.UpdateLastRangeData(0)
+		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_MANUAL {
+			healthcheck.SetStatusSuccess()
+			healthcheck.SetLastUpdateAtCurrentTime()
 		}
 	}
 

@@ -137,6 +137,8 @@
 						if (healthcheck.token == currentHealthcheck.token) {
 							healthcheck.status = currentHealthcheck.status;
 							healthcheck.ping = currentHealthcheck.ping;
+							healthcheck.range = currentHealthcheck.range;
+							healthcheck.description = currentHealthcheck.description;
 							break;
 						}
 					}
@@ -153,6 +155,8 @@
 					// set healthcheck data on html
 					$(".ph-healthcheck-token-" + healthcheck.token).html(healthcheck.token);
 					$(".ph-healthcheck-value-ping-" + healthcheck.token).html(Util.msToHumanText(healthcheck.ping));
+					$(".ph-healthcheck-value-range-" + healthcheck.token).html(healthcheck.range);
+					$(".ph-healthcheck-value-status-" + healthcheck.token).html(healthcheck.status);
 
 					var statusHTML = "";
 
