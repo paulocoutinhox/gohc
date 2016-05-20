@@ -8,6 +8,10 @@ GoHC was made to be a simple and light healthcheck system made with Go (Golang).
 Some project advantages:
 - Lightweight (< 5 MB RAM memory)
 - Healthcheck list is a simples JSON file - yes, you dont need one database!
+- Healthcheck can have 3 types (ping, range and manual)
+  - Type "ping": will automatic change status by ping time
+  - Type "range": will automatic change status by range values (can be float)
+  - Type "status": will change status using your sent status (work as a trigger)
 - The web interface is nice - made with bootstrap and AJAX
 - It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
