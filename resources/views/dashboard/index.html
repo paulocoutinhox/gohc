@@ -138,6 +138,25 @@
 					for (var y = 0; y < list.length; y++) {
 						if (list[y].token == healthcheck.token) {
 							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						removeHealthcheckById(healthcheck.token);
+						$("#healthcheck-row-" + healthcheck.token).remove();
+					}
+				}
+
+				// update current healthcheck list - remove healthchecks that not exists
+				for (var x = 0; x < list.length; x++) {
+					var healthcheck = list[x];
+					var found = false;
+
+					for (var y = 0; y < healthcheckList.length; y++) {
+						if (healthcheckList[y].token == healthcheck.token) {
+							found = true;
+							break;
 						}
 					}
 
@@ -163,6 +182,7 @@
 					}
 				}
 
+				// add new healthchecks
 				for (var x = 0; x < healthcheckList.length; x++) {
 					var healthcheck = healthcheckList[x];
 
@@ -208,7 +228,7 @@
 			}
 
 			if (errorMessage) {
-				Healthcheck.clearHealthcheckList();
+				Healthcheck.clearHealthcheckListItem();
 				clearHealthcheckList();
 				Util.showErrorData(errorMessage);
 			}
@@ -217,7 +237,7 @@
 		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
 			Util.showNoData();
-			Healthcheck.clearHealthcheckList();
+			Healthcheck.clearHealthcheckListItem();
 			clearHealthcheckList();
 			autoLoad();
 		});

@@ -2,14 +2,6 @@
 <div class="healthcheck-list">
 
 	<div class="col-md-8 col-lg-8">
-		<!-- OPTIONS -->
-		<div id="options-container" class="panel panel-default hiddenContent">
-			<div class="panel-body">
-				<h3 class="options-container-title">Healthcheck List</h3>
-				<button type="button" class="btn btn-default" onclick="back()">Back</button>
-			</div>
-		</div>
-
 		<!-- DATA -->
 		<div id="data">
 			<div id="healthcheck-list" class="list-group"></div>
@@ -170,6 +162,25 @@
 					for (var y = 0; y < list.length; y++) {
 						if (list[y].token == healthcheck.token) {
 							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						removeHealthcheckById(healthcheck.token);
+						$("#healthcheck-row-" + healthcheck.token).remove();
+					}
+				}
+
+				// update current healthcheck list - remove healthchecks that not exists
+				for (var x = 0; x < list.length; x++) {
+					var healthcheck = list[x];
+					var found = false;
+
+					for (var y = 0; y < healthcheckList.length; y++) {
+						if (healthcheckList[y].token == healthcheck.token) {
+							found = true;
+							break;
 						}
 					}
 
@@ -188,6 +199,7 @@
 
 						if (healthcheck.token == currentHealthcheck.token) {
 							healthcheck.status = currentHealthcheck.status;
+							healthcheck.ping = currentHealthcheck.ping;
 							break;
 						}
 					}
@@ -203,6 +215,7 @@
 
 					// set healthcheck data on html
 					$(".ph-healthcheck-token-" + healthcheck.token).html(healthcheck.token);
+					$(".ph-healthcheck-ping-" + healthcheck.token).html(Util.msToHumanText(healthcheck.ping));
 
 					var statusHTML = "";
 
@@ -299,8 +312,6 @@
 
 					Util.showData('graph');
 				}
-
-				Util.showOptionsContainer();
 			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}

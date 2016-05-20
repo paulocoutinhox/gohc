@@ -311,6 +311,22 @@ a.desc:after {
 	display: none;
 }
 
+.container-dashboard #no-data {
+	padding: 10px;
+}
+
+.container-dashboard #error-data {
+	padding: 10px;
+}
+
+.container-dashboard #loading-data {
+	padding: 10px;
+}
+
+.container-dashboard #data {
+	padding: 10px;
+}
+
 .hiddenContent {
 	display: none;
 }

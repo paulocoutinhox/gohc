@@ -10,6 +10,7 @@ var Healthcheck = new function () {
 			'    <h4 class="list-group-item-heading">' + healthcheck.description + '</h4>' +
 			'    <div class="list-group-item-text">' +
 			'        <div><strong>Status:</strong> <span class="ph-healthcheck-status-' + healthcheck.token + '"></span></div>' +
+			'        <div><strong>Ping:</strong> <span class="ph-healthcheck-ping-' + healthcheck.token + '"></span></div>' +
 			'    </div>' +
 			'</div>';
 
@@ -45,6 +46,10 @@ var Healthcheck = new function () {
 
 	this.clearHealthcheckList = function () {
 		$('.healthcheck-row').remove();
+	};
+
+	this.clearHealthcheckListItem = function () {
+		$('.healthcheck-item').remove();
 	};
 
 	this.list = function (preProcess, success, error) {
