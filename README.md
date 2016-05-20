@@ -80,19 +80,24 @@ MIT
 
 # Screenshots
 
-Home
+**# HOME**
+
 ![SS1](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot1.png "Screenshot 1")
 
-Healthcheck list
+**# HEALTHCHECK LIST**
+
 ![SS2](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot2.png "Screenshot 2")
 
-Healthcheck dashboard - full screen
+**# HEALTHCHECK DASHBOARD - FULL SCREEN**
+
 ![SS3](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot3.png "Screenshot 3")
 
-Healthcheck dashboard - tablet
+**# HEALTHCHECK DASHBOARD - TABLET**
+
 ![SS4](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot4.png "Screenshot 4")
 
-Healthcheck dashboard - smartphone
+**# HEALTHCHECK DASHBOARD - SMARTPHONE**
+
 ![SS5](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
 
 
