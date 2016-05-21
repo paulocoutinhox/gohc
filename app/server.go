@@ -190,11 +190,10 @@ func (This *WebServer) LoadConfiguration() {
 }
 
 func (This *WebServer) Start() {
+	log.Printf("Access GoHC on %v : OK", This.Host)
 	err := This.Router.Run(This.Host)
 
 	if err != nil {
 		log.Fatalf("Server not started: %v", err)
 	}
-
-	log.Printf("Server started on %v : OK", This.Host)
 }
