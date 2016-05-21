@@ -85,7 +85,19 @@
 		{
 			"token": "site-manual",
 			"description": "My web site manual",
-			"type": "manual"
+			"type": "manual",
+			"warningNotifiers": [
+				{
+					"id": "cli-send-push",
+					"interval": 10000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "cli-send-push",
+					"interval": 10000
+				}
+			]
 		},
 		{
 			"token": "blog-manual",
