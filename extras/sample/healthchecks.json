@@ -21,6 +21,10 @@
 				{
 					"id": "pushbullet-test",
 					"interval": 86400000
+				},
+				{
+					"id": "slack-webhook-test",
+					"interval": 100000
 				}
 			],
 			"errorNotifiers": [
@@ -40,6 +44,10 @@
 				{
 					"id": "pushbullet-test",
 					"interval": 86400000
+				},
+				{
+					"id": "slack-webhook-test",
+					"interval": 100000
 				}
 			]
 		},
@@ -149,6 +157,14 @@
 				"email": "",
 				"channelTag": "",
 				"clientIden": ""
+			}
+		},
+		{
+			"id": "slack-webhook-test",
+			"plugin": "slackwebhook",
+			"params": {
+				"url": "[change]",
+				"channel": ""
 			}
 		}
 	]

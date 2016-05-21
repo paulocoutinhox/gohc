@@ -121,6 +121,15 @@ func (This *WebServer) LoadHealthchecks() {
 			domain.NotifierManagerAddPlugin(plugin)
 
 			log.Printf("Notifier plugin (Id: %v, Index: %v) was added", notifier.ID, i)
+		} else if notifier.Plugin == domain.NOTIFIER_PLUGIN_SLACK_WEBHOOK_NAME {
+			plugin := &domain.NotifierPluginSlackWebHook{
+				ID:     notifier.ID,
+				Params: notifier.Params,
+			}
+
+			domain.NotifierManagerAddPlugin(plugin)
+
+			log.Printf("Notifier plugin (Id: %v, Index: %v) was added", notifier.ID, i)
 		} else {
 			log.Printf("Notifier plugin (Id: %v, Index: %v) is unknown", notifier.ID, i)
 		}

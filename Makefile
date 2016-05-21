@@ -30,7 +30,9 @@ format:
 	${GOFMT} models/domain/notifier_plugin_manager.go
 	${GOFMT} models/domain/notifier_plugin_pushbullet.go
 	${GOFMT} models/domain/notifier_plugin_sendgrid.go
+	${GOFMT} models/domain/notifier_plugin_slack_webhook.go
 	${GOFMT} models/domain/push.go
+	${GOFMT} models/domain/slack.go
 	${GOFMT} models/util/util.go
 	${GOFMT} processor/processor.go
 
@@ -42,6 +44,7 @@ deps:
 	${GODEPS} github.com/go-ini/ini
 	${GODEPS} github.com/sendgrid/sendgrid-go
 	${GODEPS} github.com/mitsuse/pushbullet-go
+	${GODEPS} github.com/bluele/slack
 
 stop:
 	pkill -f ${PROJECT}
