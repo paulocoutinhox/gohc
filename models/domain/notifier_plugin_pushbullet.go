@@ -1,9 +1,9 @@
 package domain
 
 import (
-	"log"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
+	"log"
 )
 
 const (
