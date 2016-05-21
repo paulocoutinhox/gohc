@@ -190,7 +190,7 @@ func (This *WebServer) LoadConfiguration() {
 }
 
 func (This *WebServer) Start() {
-	log.Printf("Access GoHC on %v : OK", This.Host)
+	log.Printf("Open GoHC on your browser: %v", This.Host)
 	err := This.Router.Run(This.Host)
 
 	if err != nil {

@@ -20,7 +20,7 @@
 				},
 				{
 					"id": "pushbullet-test",
-					"interval": 864000
+					"interval": 86400000
 				}
 			],
 			"errorNotifiers": [
@@ -35,11 +35,11 @@
 				},
 				{
 					"id": "sendgrid-test",
-					"interval": 864000
+					"interval": 86400000
 				},
 				{
 					"id": "pushbullet-test",
-					"interval": 864000
+					"interval": 86400000
 				}
 			]
 		},
