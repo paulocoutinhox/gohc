@@ -15,7 +15,7 @@ func NotifierManagerProcess(healthcheck Healthcheck, healthcheckNotifier Healthc
 
 	for _, plugin := range Plugins {
 		if healthcheckNotifier.ID == plugin.GetId() {
-			plugin.Notify(healthcheck)
+			plugin.Notify(healthcheck, healthcheckNotifier)
 		}
 	}
 

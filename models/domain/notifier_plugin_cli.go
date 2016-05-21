@@ -14,7 +14,7 @@ type NotifierPluginCLI struct {
 	ID     string
 }
 
-func (This *NotifierPluginCLI)Notify(healthcheck Healthcheck) {
+func (This *NotifierPluginCLI) Notify(healthcheck Healthcheck, healthcheckNotifier HealthcheckNotifier) {
 	log.Println("NotifierPluginCLI : Notify")
 
 	if This.Params == nil {
@@ -59,10 +59,10 @@ func (This *NotifierPluginCLI)Notify(healthcheck Healthcheck) {
 	}
 }
 
-func (This *NotifierPluginCLI)GetName() string {
+func (This *NotifierPluginCLI) GetName() string {
 	return NOTIFIER_PLUGIN_CLI_NAME
 }
 
-func (This *NotifierPluginCLI)GetId() string {
+func (This *NotifierPluginCLI) GetId() string {
 	return This.ID
 }

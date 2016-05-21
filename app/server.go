@@ -87,7 +87,34 @@ func (This *WebServer) LoadHealthchecks() {
 	for i, notifier := range healthcheckFile.Notifiers {
 		if notifier.Plugin == domain.NOTIFIER_PLUGIN_CLI_NAME {
 			plugin := &domain.NotifierPluginCLI{
-				ID: notifier.ID,
+				ID:     notifier.ID,
+				Params: notifier.Params,
+			}
+
+			domain.NotifierManagerAddPlugin(plugin)
+
+			log.Printf("Notifier plugin (Id: %v, Index: %v) was added", notifier.ID, i)
+		} else if notifier.Plugin == domain.NOTIFIER_PLUGIN_HTTP_GET_NAME {
+			plugin := &domain.NotifierPluginHttpGet{
+				ID:     notifier.ID,
+				Params: notifier.Params,
+			}
+
+			domain.NotifierManagerAddPlugin(plugin)
+
+			log.Printf("Notifier plugin (Id: %v, Index: %v) was added", notifier.ID, i)
+		} else if notifier.Plugin == domain.NOTIFIER_PLUGIN_SENDGRID_NAME {
+			plugin := &domain.NotifierPluginSendGrid{
+				ID:     notifier.ID,
+				Params: notifier.Params,
+			}
+
+			domain.NotifierManagerAddPlugin(plugin)
+
+			log.Printf("Notifier plugin (Id: %v, Index: %v) was added", notifier.ID, i)
+		} else if notifier.Plugin == domain.NOTIFIER_PLUGIN_PUSHBULLET_NAME {
+			plugin := &domain.NotifierPluginPushBullet{
+				ID:     notifier.ID,
 				Params: notifier.Params,
 			}
 

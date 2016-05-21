@@ -9,7 +9,7 @@ type HealthcheckNotifier struct {
 	Params             map[string]interface{} `json:"params"`
 }
 
-func (This *HealthcheckNotifier)CanSendNotification() bool {
+func (This *HealthcheckNotifier) CanSendNotification() bool {
 	currentTime := This.GetCurrentTimeInMS()
 
 	if currentTime > (This.LastNotificationAt + This.Interval) {

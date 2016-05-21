@@ -1,7 +1,7 @@
 package domain
 
 type INotifierPlugin interface {
-	Notify(healthcheck Healthcheck)
+	Notify(healthcheck Healthcheck, healthcheckNotifier HealthcheckNotifier)
 	GetId() string
 	GetName() string
 }

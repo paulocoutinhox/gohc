@@ -10,48 +10,37 @@
 			],
 			"warningNotifiers": [
 				{
-					"id": "cli-send-push",
+					"id": "cli-test",
 					"interval": 86400000,
-					"params": {
-						"p1": "v1",
-						"p2": 1,
-						"p3": [
-							1,
-							2,
-							3
-						],
-						"p4": {
-							"p41": "a",
-							"p42": "1"
-						}
-					}
+					"params": {}
 				},
 				{
-					"id": "cli-uptime",
+					"id": "cli-test",
 					"interval": 10000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 864000
 				}
 			],
 			"errorNotifiers": [
 				{
-					"id": "cli-send-push",
+					"id": "cli-test",
 					"interval": 86400000,
-					"params": {
-						"p1": "v1",
-						"p2": 1,
-						"p3": [
-							1,
-							2,
-							3
-						],
-						"p4": {
-							"p41": "a",
-							"p42": "1"
-						}
-					}
+					"params": {}
+				}
 				},
 				{
-					"id": "cli-uptime",
+					"id": "cli-test",
 					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 864000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 864000
 				}
 			]
 		},
@@ -71,6 +60,22 @@
 			"ranges": [
 				5000,
 				10000
+			],
+			"warningNotifiers": [
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "httpget-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
 			]
 		},
 		{
@@ -88,14 +93,18 @@
 			"type": "manual",
 			"warningNotifiers": [
 				{
-					"id": "cli-send-push",
-					"interval": 10000
+					"id": "sendgrid-test",
+					"interval": 360000
 				}
 			],
 			"errorNotifiers": [
 				{
-					"id": "cli-send-push",
+					"id": "httpget-test",
 					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
 				}
 			]
 		},
@@ -107,29 +116,40 @@
 	],
 	"notifiers": [
 		{
-			"id": "cli-send-push",
+			"id": "cli-test",
 			"plugin": "cli",
 			"params": {
-				"command": "php",
-				"workingDir": "/Users/paulo/Documents/workspaces/android/ubook-android/extras/scripts/notification/",
-				"args": [
-					"notification.php"
-				]
+				"command": "[change]"
 			}
 		},
 		{
-			"id": "cli-uptime",
-			"plugin": "cli",
+			"id": "httpget-test",
+			"plugin": "httpget",
 			"params": {
-				"command": "uptime"
+				"url": "[change]"
 			}
 		},
 		{
-			"id": "sendgrid",
+			"id": "sendgrid-test",
 			"plugin": "sendgrid",
 			"params": {
-				"to": "paulo@prsolucoes.com",
-				"token": ""
+				"to": [
+					"[change]"
+				],
+				"fromEmail": "[change]",
+				"fromName": "[change]",
+				"key": "[change]"
+			}
+		},
+		{
+			"id": "pushbullet-test",
+			"plugin": "pushbullet",
+			"params": {
+				"accessToken": "[change]",
+				"deviceIden": "",
+				"email": "",
+				"channelTag": "",
+				"clientIden": ""
 			}
 		}
 	]
