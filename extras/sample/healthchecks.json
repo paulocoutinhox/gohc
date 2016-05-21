@@ -7,6 +7,41 @@
 			"ranges": [
 				5000,
 				10000
+			],
+			"warningNotifiers": [
+				{
+					"id": "cli-test",
+					"interval": 86400000,
+					"params": {}
+				},
+				{
+					"id": "cli-test",
+					"interval": 10000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 864000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "cli-test",
+					"interval": 86400000,
+					"params": {}
+				}
+				},
+				{
+					"id": "cli-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 864000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 864000
+				}
 			]
 		},
 		{
@@ -25,6 +60,22 @@
 			"ranges": [
 				5000,
 				10000
+			],
+			"warningNotifiers": [
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "httpget-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
 			]
 		},
 		{
@@ -39,12 +90,67 @@
 		{
 			"token": "site-manual",
 			"description": "My web site manual",
-			"type": "manual"
+			"type": "manual",
+			"warningNotifiers": [
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "httpget-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			]
 		},
 		{
 			"token": "blog-manual",
 			"description": "My blog manual",
 			"type": "manual"
+		}
+	],
+	"notifiers": [
+		{
+			"id": "cli-test",
+			"plugin": "cli",
+			"params": {
+				"command": "[change]"
+			}
+		},
+		{
+			"id": "httpget-test",
+			"plugin": "httpget",
+			"params": {
+				"url": "[change]"
+			}
+		},
+		{
+			"id": "sendgrid-test",
+			"plugin": "sendgrid",
+			"params": {
+				"to": [
+					"[change]"
+				],
+				"fromEmail": "[change]",
+				"fromName": "[change]",
+				"key": "[change]"
+			}
+		},
+		{
+			"id": "pushbullet-test",
+			"plugin": "pushbullet",
+			"params": {
+				"accessToken": "[change]",
+				"deviceIden": "",
+				"email": "",
+				"channelTag": "",
+				"clientIden": ""
+			}
 		}
 	]
 }

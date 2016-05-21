@@ -20,7 +20,17 @@ format:
 	${GOFMT} controllers/healthcheck.go
 	${GOFMT} controllers/home.go
 	${GOFMT} models/domain/healthcheck.go
+	${GOFMT} models/domain/healthcheck_notifier.go
 	${GOFMT} models/domain/healthchecks_file.go
+	${GOFMT} models/domain/mail.go
+	${GOFMT} models/domain/notifier.go
+	${GOFMT} models/domain/notifier_plugin_cli.go
+	${GOFMT} models/domain/notifier_plugin_http_get.go
+	${GOFMT} models/domain/notifier_plugin_interface.go
+	${GOFMT} models/domain/notifier_plugin_manager.go
+	${GOFMT} models/domain/notifier_plugin_pushbullet.go
+	${GOFMT} models/domain/notifier_plugin_sendgrid.go
+	${GOFMT} models/domain/push.go
 	${GOFMT} models/util/util.go
 	${GOFMT} processor/processor.go
 
@@ -30,6 +40,8 @@ deps:
 	${GODEPS} github.com/prsolucoes/gowebresponse
 	${GODEPS} github.com/gin-gonic/gin
 	${GODEPS} github.com/go-ini/ini
+	${GODEPS} github.com/sendgrid/sendgrid-go
+	${GODEPS} github.com/mitsuse/pushbullet-go
 
 stop:
 	pkill -f ${PROJECT}

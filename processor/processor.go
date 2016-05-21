@@ -24,7 +24,7 @@ func StartHealthcheckProcessor() {
 			if CanRunHealthchecks {
 				if OutOfWarmTime() {
 					for _, healthcheck := range Healthchecks {
-						healthcheck.Run()
+						go healthcheck.Run()
 					}
 				}
 			}
