@@ -18,7 +18,7 @@ Some project features:
 - It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
 
-You can see checklist sample file with notifications inside: **extras/sample/healthchecks.json**
+You can see healthcheck list sample file with notifications inside: **extras/sample/healthchecks.json**
 
 # Configuration
 
