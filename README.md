@@ -13,7 +13,7 @@ Some project features:
   - Type "range": will automatic change status by range values (can be float)
   - Type "manual": will change status using your sent status (work as a trigger)
 - Have a warm time configuration, to only start run healthchecks after it
-- Notification system based on plugins. Today we have CLI, Http Get, SendGrid and PushBullet plugins
+- Notification system based on plugins. Today we have CLI, Http Get, SendGrid, PushBullet and Slack plugins
 - The web interface is nice - made with bootstrap and AJAX
 - It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
