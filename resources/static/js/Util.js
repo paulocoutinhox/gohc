@@ -291,17 +291,17 @@ var Util = new function () {
 
 	this.msToHumanText = function (ms) {
 		if (ms < 1000) {
-			return ms + " ms";
+			return ms + " ms ago";
 		} else if (ms < 60000) {
-			return Math.floor(ms / 1000) + " sec";
+			return Math.floor(ms / 1000) + " secs ago";
 		} else if (ms < 120000) {
 			return "1 minute ago";
 		} else if (ms < 360000) {
-			return Math.floor(ms / 60000) + " minutes";
+			return Math.floor(ms / 60000) + " minutes ago";
 		} else if (ms < 7200000) {
 			return "1 hour ago";
 		} else {
-			return Math.floor(ms / 3600000) + " hours";
+			return Math.floor(ms / 3600000) + " hours ago";
 		}
 	};
 

@@ -2,27 +2,30 @@ package domain
 
 import (
 	"time"
+	"log"
 )
 
 const (
 	HEALTHCHECK_STATUS_SUCCESS = "success"
 	HEALTHCHECK_STATUS_WARNING = "warning"
-	HEALTHCHECK_STATUS_ERROR   = "error"
+	HEALTHCHECK_STATUS_ERROR = "error"
 
-	HEALTHCHECK_TYPE_PING   = "ping"
-	HEALTHCHECK_TYPE_RANGE  = "range"
+	HEALTHCHECK_TYPE_PING = "ping"
+	HEALTHCHECK_TYPE_RANGE = "range"
 	HEALTHCHECK_TYPE_MANUAL = "manual"
 )
 
 type Healthcheck struct {
-	Token        string    `json:"token"`
-	Description  string    `json:"description"`
-	LastUpdateAt int64     `json:"lastUpdateAt"`
-	Ping         int64     `json:"ping"`
-	Range        float64   `json:"range"`
-	Ranges       []float64 `json:"ranges"`
-	Status       string    `json:"status"`
-	Type         string    `json:"type"`
+	Token            string    `json:"token"`
+	Description      string    `json:"description"`
+	LastUpdateAt     int64     `json:"lastUpdateAt"`
+	Ping             int64     `json:"ping"`
+	Range            float64   `json:"range"`
+	Ranges           []float64 `json:"ranges"`
+	Status           string    `json:"status"`
+	Type             string    `json:"type"`
+	WarningNotifiers []*HealthcheckNotifier `json:"warningNotifiers"`
+	ErrorNotifiers   []*HealthcheckNotifier `json:"errorNotifiers"`
 }
 
 func (This *Healthcheck) Run() {
@@ -33,16 +36,48 @@ func (This *Healthcheck) Run() {
 			This.Status = HEALTHCHECK_STATUS_SUCCESS
 		} else if This.InWarningRange(float64(This.Ping)) {
 			This.Status = HEALTHCHECK_STATUS_WARNING
+			This.NotifyWarningStatus()
 		} else if This.InErrorRange(float64(This.Ping)) {
 			This.Status = HEALTHCHECK_STATUS_ERROR
+			This.NotifyErrorStatus()
 		}
 	} else if This.Type == HEALTHCHECK_TYPE_RANGE {
 		if This.InSuccessRange(This.Range) {
 			This.Status = HEALTHCHECK_STATUS_SUCCESS
 		} else if This.InWarningRange(This.Range) {
 			This.Status = HEALTHCHECK_STATUS_WARNING
+			This.NotifyWarningStatus()
 		} else if This.InErrorRange(This.Range) {
 			This.Status = HEALTHCHECK_STATUS_ERROR
+			This.NotifyErrorStatus()
+		}
+	} else if This.Type == HEALTHCHECK_TYPE_MANUAL {
+		if This.Status == HEALTHCHECK_STATUS_WARNING {
+			This.NotifyWarningStatus()
+		} else if This.Status == HEALTHCHECK_STATUS_ERROR {
+			This.NotifyErrorStatus()
+		}
+	}
+}
+
+func (This *Healthcheck) NotifyWarningStatus() {
+	if This.WarningNotifiers != nil {
+		for _, notifier := range This.WarningNotifiers {
+			if notifier.CanSendNotification() {
+				log.Println("Healthcheck : Started process to send warning notifications")
+				go NotifierManagerProcess(This)
+			}
+		}
+	}
+}
+
+func (This *Healthcheck) NotifyErrorStatus() {
+	if This.ErrorNotifiers != nil {
+		for _, notifier := range This.ErrorNotifiers {
+			if notifier.CanSendNotification() {
+				log.Println("Healthcheck : Started process to send error notifications")
+				go NotifierManagerProcess(This)
+			}
 		}
 	}
 }

@@ -7,8 +7,8 @@ import (
 	"github.com/prsolucoes/gohc/processor"
 	"github.com/prsolucoes/gowebresponse"
 	"log"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 type APIController struct{}

@@ -7,7 +7,33 @@
 			"ranges": [
 				5000,
 				10000
-			]
+			],
+			"warningNotifiers": [{
+				"id": "cli-send-push",
+				"interval": 86400000,
+				"params": {
+					"p1": "v1",
+					"p2": 1,
+					"p3": [1, 2, 3],
+					"p4": {
+						"p41": "a",
+						"p42": "1"
+					}
+				}
+			}],
+			"errorNotifiers": [{
+				"id": "cli-send-push",
+				"interval": 86400000,
+				"params": {
+					"p1": "v1",
+					"p2": 1,
+					"p3": [1, 2, 3],
+					"p4": {
+						"p41": "a",
+						"p42": "1"
+					}
+				}
+			}]
 		},
 		{
 			"token": "blog",
@@ -45,6 +71,27 @@
 			"token": "blog-manual",
 			"description": "My blog manual",
 			"type": "manual"
+		}
+	],
+	"notifiers": [
+		{
+			"id": "cli-send-push",
+			"plugin": "cli",
+			"params": {
+				"command": "php",
+				"workingDir": "/Users/paulo/Documents/workspaces/android/ubook-android/extras/scripts/notification/",
+				"args": [
+					"notification.php"
+				]
+			}
+		},
+		{
+			"id": "sendgrid",
+			"plugin": "sendgrid",
+			"params": {
+				"to": "paulo@prsolucoes.com",
+				"token": ""
+			}
 		}
 	]
 }
