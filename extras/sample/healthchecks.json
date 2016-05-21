@@ -28,7 +28,6 @@
 					"id": "cli-test",
 					"interval": 86400000,
 					"params": {}
-				}
 				},
 				{
 					"id": "cli-test",
