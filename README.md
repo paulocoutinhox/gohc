@@ -52,8 +52,9 @@ I have created a sample healthcheck file and a sample config file. Check it on *
 
 # API
 
-**Check file: controllers/api.go**  
-Today we dont have a API doc - but is simple looking code [TODO]  
+1. update a ping = http://localhost:8080/api/update/ping/[TOKEN]
+2. update a range = http://localhost:8080/api/update/range/[TOKEN]/[VALUE-FLOAT-OR-INT]
+3. update manual = http://localhost:8080/api/update/manual/[TOKEN]/[SUCCESS-WARNING-OR-ERROR]
 
 # Command line interface
 
