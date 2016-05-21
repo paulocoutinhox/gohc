@@ -8,32 +8,52 @@
 				5000,
 				10000
 			],
-			"warningNotifiers": [{
-				"id": "cli-send-push",
-				"interval": 86400000,
-				"params": {
-					"p1": "v1",
-					"p2": 1,
-					"p3": [1, 2, 3],
-					"p4": {
-						"p41": "a",
-						"p42": "1"
+			"warningNotifiers": [
+				{
+					"id": "cli-send-push",
+					"interval": 86400000,
+					"params": {
+						"p1": "v1",
+						"p2": 1,
+						"p3": [
+							1,
+							2,
+							3
+						],
+						"p4": {
+							"p41": "a",
+							"p42": "1"
+						}
 					}
+				},
+				{
+					"id": "cli-uptime",
+					"interval": 10000
 				}
-			}],
-			"errorNotifiers": [{
-				"id": "cli-send-push",
-				"interval": 86400000,
-				"params": {
-					"p1": "v1",
-					"p2": 1,
-					"p3": [1, 2, 3],
-					"p4": {
-						"p41": "a",
-						"p42": "1"
+			],
+			"errorNotifiers": [
+				{
+					"id": "cli-send-push",
+					"interval": 86400000,
+					"params": {
+						"p1": "v1",
+						"p2": 1,
+						"p3": [
+							1,
+							2,
+							3
+						],
+						"p4": {
+							"p41": "a",
+							"p42": "1"
+						}
 					}
+				},
+				{
+					"id": "cli-uptime",
+					"interval": 10000
 				}
-			}]
+			]
 		},
 		{
 			"token": "blog",
@@ -83,6 +103,13 @@
 				"args": [
 					"notification.php"
 				]
+			}
+		},
+		{
+			"id": "cli-uptime",
+			"plugin": "cli",
+			"params": {
+				"command": "uptime"
 			}
 		},
 		{
