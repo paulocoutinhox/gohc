@@ -65,6 +65,7 @@ func (This *Healthcheck) NotifyWarningStatus() {
 		for _, notifier := range This.WarningNotifiers {
 			if notifier.CanSendNotification() {
 				log.Println("Healthcheck : Started process to send warning notifications")
+				// TODO: SEND ONLY TO THIS NOTIFIER CONFIG
 				go NotifierManagerProcess(This)
 			}
 		}
@@ -76,6 +77,7 @@ func (This *Healthcheck) NotifyErrorStatus() {
 		for _, notifier := range This.ErrorNotifiers {
 			if notifier.CanSendNotification() {
 				log.Println("Healthcheck : Started process to send error notifications")
+				// TODO: SEND ONLY TO THIS NOTIFIER CONFIG
 				go NotifierManagerProcess(This)
 			}
 		}
