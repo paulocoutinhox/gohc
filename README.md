@@ -5,7 +5,7 @@
 
 GoHC was made to be a simple and light healthcheck system made with Go (Golang).
 
-Some project advantages:
+Some project features:
 - Lightweight (< 5 MB RAM memory)
 - Healthcheck list is a simples JSON file - yes, you dont need one database!
 - Healthcheck can have 3 types (ping, range and manual)
