@@ -1,5 +1,11 @@
 var Util = new function () {
 
+	var TIME_MS      = 1000;
+	var TIME_SECONDS = (TIME_MS * 60);
+	var TIME_MINUTES = (TIME_SECONDS * 60);
+	var TIME_HOURS   = (TIME_MINUTES * 60);
+	var TIME_DAYS    = (TIME_HOURS * 24);
+
 	this.padNumber = function (number) {
 		return (number < 10 ? '0' + number : number);
 	};
@@ -290,18 +296,30 @@ var Util = new function () {
 	};
 
 	this.msToHumanText = function (ms) {
-		if (ms < 1000) {
-			return ms + " ms ago";
-		} else if (ms < 60000) {
-			return Math.floor(ms / 1000) + " secs ago";
-		} else if (ms < 120000) {
-			return "1 minute ago";
-		} else if (ms < 360000) {
-			return Math.floor(ms / 60000) + " minutes ago";
-		} else if (ms < 7200000) {
-			return "1 hour ago";
+		var value = 0;
+		var text = 0;
+
+		if (ms < TIME_MS) {
+			value = ms;
+			text = "m";
+		} else if (ms < TIME_SECONDS) {
+			value = Math.floor(ms / TIME_MS);
+			text = "sec";
+		} else if (ms < TIME_MINUTES) {
+			value = Math.floor(ms / TIME_SECONDS);
+			text = "minute";
+		} else if (ms < TIME_HOURS) {
+			value = Math.floor(ms / TIME_MINUTES);
+			text = "hour";
 		} else {
-			return Math.floor(ms / 3600000) + " hours ago";
+			value = Math.floor(ms / TIME_HOURS);
+			text = "day";
+		}
+
+		if (value == 1) {
+			return value + " " + text + " ago";
+		} else {
+			return value + " " + text + "s ago";
 		}
 	};
 
