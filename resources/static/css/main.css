@@ -351,19 +351,19 @@ a.desc:after {
 }
 
 .output-content-line-error {
-	color: #ff0017;
+	color: #ed5565;
 }
 
 .output-content-line-warning {
-	color: #f2b902;
+	color: #f8ac59;
 }
 
 .output-content-line-info {
-	color: #127fff;
+	color: #56C0E0;
 }
 
 .output-content-line-success {
-	color: #00BB08;
+	color: #1ab394;
 }
 
 .tab-pane-output-group .panel {
@@ -376,15 +376,15 @@ a.desc:after {
 }
 
 .pie-chart-serie-warning {
-	stroke: #ffbe41;
+	stroke: #f8ac59;
 }
 
 .pie-chart-serie-success {
-	stroke: #39c558;
+	stroke: #1ab394;
 }
 
 .pie-chart-serie-error {
-	stroke: #ff3e43;
+	stroke: #ed5565;
 }
 
 .toast-success {
