@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"github.com/prsolucoes/gohc/models/warm"
 	"log"
 	"time"
 )
@@ -61,6 +62,11 @@ func (This *Healthcheck) Run() {
 }
 
 func (This *Healthcheck) NotifyWarningStatus() {
+	if warm.InWarmTime() {
+		log.Println("Healthcheck : Warning alerts not sent, warm time running")
+		return
+	}
+
 	if This.WarningNotifiers != nil {
 		for _, notifier := range This.WarningNotifiers {
 			if notifier.CanSendNotification() {
@@ -72,6 +78,11 @@ func (This *Healthcheck) NotifyWarningStatus() {
 }
 
 func (This *Healthcheck) NotifyErrorStatus() {
+	if warm.InWarmTime() {
+		log.Println("Healthcheck : Error alerts not sent, warm time running")
+		return
+	}
+
 	if This.ErrorNotifiers != nil {
 		for _, notifier := range This.ErrorNotifiers {
 			if notifier.CanSendNotification() {

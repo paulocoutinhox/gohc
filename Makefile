@@ -34,6 +34,7 @@ format:
 	${GOFMT} models/domain/push.go
 	${GOFMT} models/domain/slack.go
 	${GOFMT} models/util/util.go
+	${GOFMT} models/warm/warm.go
 	${GOFMT} processor/processor.go
 
 test:
@@ -56,4 +57,5 @@ start:
 
 update:
 	git pull origin master
+	make deps
 	make install

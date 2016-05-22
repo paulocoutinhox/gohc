@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
 	"github.com/prsolucoes/gohc/models/domain"
+	"github.com/prsolucoes/gohc/models/warm"
 	"github.com/prsolucoes/gohc/processor"
 	"io/ioutil"
 	"log"
@@ -154,7 +155,7 @@ func (This *WebServer) LoadConfiguration() {
 			This.Host = ":8080"
 			This.WorkspaceDir = ""
 			This.ResourcesDir = ""
-			processor.WarmTime = 10
+			warm.WarmTime = (1000 * 60) // 1 minute
 		} else {
 			{
 				// host
@@ -188,7 +189,7 @@ func (This *WebServer) LoadConfiguration() {
 					log.Fatalf("Configuration file load error : %s", err.Error())
 				}
 
-				processor.WarmTime = value
+				warm.WarmTime = value
 			}
 		}
 
