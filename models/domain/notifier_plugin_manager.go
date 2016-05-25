@@ -10,6 +10,10 @@ func NotifierManagerAddPlugin(plugin INotifierPlugin) {
 	Plugins = append(Plugins, plugin)
 }
 
+func NotifierManagerClearPlugins() {
+	Plugins = []INotifierPlugin{}
+}
+
 func NotifierManagerProcess(healthcheck Healthcheck, healthcheckNotifier HealthcheckNotifier) error {
 	log.Println("NotifierPluginManager : NotifierManagerProcess")
 

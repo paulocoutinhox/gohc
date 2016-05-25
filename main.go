@@ -9,7 +9,7 @@ import (
 func main() {
 	app.Server = app.NewWebServer()
 	app.Server.LoadConfiguration()
-	app.Server.LoadHealthchecks()
+	app.Server.TestHealthchecksFile(true)
 	app.Server.CreateBasicRoutes()
 
 	{
@@ -29,6 +29,11 @@ func main() {
 
 	{
 		controller := controllers.HealthcheckController{}
+		controller.Register()
+	}
+
+	{
+		controller := controllers.SystemController{}
 		controller.Register()
 	}
 

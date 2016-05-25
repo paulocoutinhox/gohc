@@ -14,6 +14,7 @@ Some project features:
   - Type "manual": will change status using your sent status (work as a trigger)
 - Have a warm time configuration, to only start run healthchecks after it
 - Notification system based on plugins. Today we have CLI, Http Get, SendGrid, PushBullet and Slack plugins
+- You can reload your healthchecks and notifiers file from web and API - dont need restart the GoHC
 - The web interface is nice - made with bootstrap and AJAX
 - It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
@@ -55,6 +56,7 @@ I have created a sample healthcheck file and a sample config file. Check it on *
 1. update a ping = http://localhost:8080/api/update/ping/[TOKEN]
 2. update a range = http://localhost:8080/api/update/range/[TOKEN]/[VALUE-FLOAT-OR-INT]
 3. update manual = http://localhost:8080/api/update/manual/[TOKEN]/[SUCCESS-WARNING-OR-ERROR]
+4. reload healthchecks and notifiers file = http://localhost:8080/api/system/reload
 
 # Command line interface
 

@@ -1,0 +1,41 @@
+{{define "content"}}
+<div class="system-settings">
+
+	<h1>System settings</h1>
+
+	<div class="body-content">
+
+		<ul>
+			<li>
+				<a href="javascript:systemReload();">Reload healthchecks and notifiers</a>
+			</li>
+		</ul>
+
+	</div>
+</div>
+
+<script>
+	function systemReload() {
+		System.reload(function () {
+			Util.showProgressWindow();
+		}, function (wr) {
+			Util.hideProgressWindow();
+
+			var errorMessage = null;
+
+			if (wr.success) {
+				Util.showSuccessNotification("System reloaded!");
+			} else {
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage) {
+				Util.showErrorNotification(errorMessage);
+			}
+		}, function () {
+			Util.hideProgressWindow();
+			Util.showErrorNotification("An error occurred while processing your request, try again!");
+		});
+	}
+</script>
+{{end}}

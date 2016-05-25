@@ -19,6 +19,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/update/manual/:token/:status", This.APIUpdateManual)
 	app.Server.Router.GET("/api/healthcheck/count", This.APIHealthcheckCount)
 	app.Server.Router.GET("/api/healthcheck/list", This.APIHealthcheckList)
+	app.Server.Router.GET("/api/system/reload", This.APISystemReload)
 	log.Println("APIController register : OK")
 }
 
@@ -139,5 +140,21 @@ func (This *APIController) APIHealthcheckList(c *gin.Context) {
 	response.Success = true
 	response.Message = ""
 	response.AddData("list", processor.Healthchecks)
+	c.JSON(200, response)
+}
+
+func (This *APIController) APISystemReload(c *gin.Context) {
+	err := app.Server.TestHealthchecksFile(true)
+	response := new(gowebresponse.WebResponse)
+
+	if err == nil {
+		response.Success = true
+		response.Message = ""
+	} else {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+	}
+
 	c.JSON(200, response)
 }

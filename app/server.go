@@ -11,6 +11,8 @@ import (
 	"io/ioutil"
 	"log"
 	"strconv"
+	"errors"
+	"fmt"
 )
 
 type WebServer struct {
@@ -40,52 +42,42 @@ func (This *WebServer) CreateBasicRoutes() {
 	log.Println("Router creation : OK")
 }
 
-func (This *WebServer) LoadHealthchecks() {
-	fileName := This.WorkspaceDir + "/healthchecks.json"
-
-	log.Printf("Loading healthcheck list file: %v", fileName)
-	file, err := ioutil.ReadFile(fileName)
-
-	if err != nil {
-		log.Fatalf("Failed to load healthchecks file: %v", err)
+func (This *WebServer) LoadHealthchecks(healthchecks []*domain.Healthcheck, notifiers []*domain.Notifier) error {
+	if healthchecks == nil {
+		return errors.New("Healthcheck list is invalid")
 	}
 
-	healthcheckFile := domain.HealthchecksFile{}
-
-	err = json.Unmarshal(file, &healthcheckFile)
-
-	if err != nil {
-		log.Fatalf("Failed to read healthchecks file: %v", err)
+	if notifiers == nil {
+		return errors.New("Notifier list is invalid")
 	}
 
-	for i, healthcheck := range healthcheckFile.Healthchecks {
+	log.Printf("Loading %v healthchecks...", len(healthchecks))
+
+	for i, healthcheck := range healthchecks {
 		if healthcheck.Type == domain.HEALTHCHECK_TYPE_PING {
-			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
-				log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)
-			}
-
 			healthcheck.SetStatusSuccess()
 			healthcheck.SetLastUpdateAtCurrentTime()
 			healthcheck.UpdateLastPingData()
+			log.Printf("Healthcheck (Id: %v, Index: %v) was added", healthcheck.Token, i)
 		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_RANGE {
-			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
-				log.Fatalf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i)
-			}
-
 			healthcheck.SetStatusSuccess()
 			healthcheck.SetLastUpdateAtCurrentTime()
 			healthcheck.UpdateLastRangeData(0)
+			log.Printf("Healthcheck (Id: %v, Index: %v) was added", healthcheck.Token, i)
 		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_MANUAL {
 			healthcheck.SetStatusSuccess()
 			healthcheck.SetLastUpdateAtCurrentTime()
-		} else {
-			log.Fatalf("Healthcheck (Token: %v, Index: %v) has invalid type", healthcheck.Token, i)
+			log.Printf("Healthcheck (Id: %v, Index: %v) was added", healthcheck.Token, i)
 		}
 	}
 
-	processor.Healthchecks = healthcheckFile.Healthchecks
+	processor.Healthchecks = healthchecks
 
-	for i, notifier := range healthcheckFile.Notifiers {
+	log.Printf("Loading %v notifiers plugin...", len(notifiers))
+
+	domain.NotifierManagerClearPlugins()
+
+	for i, notifier := range notifiers {
 		if notifier.Plugin == domain.NOTIFIER_PLUGIN_CLI_NAME {
 			plugin := &domain.NotifierPluginCLI{
 				ID:     notifier.ID,
@@ -136,7 +128,55 @@ func (This *WebServer) LoadHealthchecks() {
 		}
 	}
 
-	log.Printf("Healthchecks file (%v) loaded", fileName)
+	log.Printf("Data was loaded with success!")
+
+	return nil
+}
+
+func (This *WebServer) TestHealthchecksFile(load bool) error {
+	fileName := This.WorkspaceDir + "/healthchecks.json"
+
+	log.Printf("Loading healthcheck list file: %v", fileName)
+	file, err := ioutil.ReadFile(fileName)
+
+	if err != nil {
+		return errors.New(fmt.Sprintf("Failed to load healthchecks file: %v", err))
+	}
+
+	healthcheckFile := domain.HealthchecksFile{}
+
+	err = json.Unmarshal(file, &healthcheckFile)
+
+	if err != nil {
+		return errors.New(fmt.Sprintf("Failed to read healthchecks file: %v", err))
+	}
+
+	healthchecks := healthcheckFile.Healthchecks
+	notifiers := healthcheckFile.Notifiers
+
+	for i, healthcheck := range healthchecks {
+		if healthcheck.Type == domain.HEALTHCHECK_TYPE_PING {
+			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
+				return errors.New(fmt.Sprintf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i))
+			}
+		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_RANGE {
+			if healthcheck.Ranges == nil || len(healthcheck.Ranges) != 2 {
+				return errors.New(fmt.Sprintf("Healthcheck (Token: %v, Index: %v) don't have 2 ranges", healthcheck.Token, i))
+			}
+		} else if healthcheck.Type == domain.HEALTHCHECK_TYPE_MANUAL {
+			// ?
+		} else {
+			return errors.New(fmt.Sprintf("Healthcheck (Token: %v, Index: %v) has invalid type", healthcheck.Token, i))
+		}
+	}
+
+	log.Printf("Healthchecks file (%v) tested : OK", fileName)
+
+	if load {
+		return This.LoadHealthchecks(healthchecks, notifiers)
+	}
+
+	return nil
 }
 
 func (This *WebServer) LoadConfiguration() {

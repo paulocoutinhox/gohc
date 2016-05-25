@@ -472,3 +472,11 @@ a.desc:after {
 .healthcheck-item .ping {
 	margin: 0;
 }
+
+.system-settings ul {
+	margin-top: 40px;
+}
+
+.system-settings ul li {
+	padding: 10px 0;
+}
