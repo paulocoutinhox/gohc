@@ -37,7 +37,7 @@
 				<div class="panel-body">
 					<h3>Healthcheck graph</h3>
 					<br/>
-					<div class="ct-chart ct-perfect-fourth"></div>
+					<canvas id="graph"></canvas>
 				</div>
 			</div>
 		</div>
@@ -46,6 +46,14 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div>No healthchecks for graph</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-error-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>Problem while loading healthcheck list</div>
 				</div>
 			</div>
 		</div>
@@ -61,6 +69,12 @@
 
 <!-- STARTUP -->
 <script>
+	var lastGraphTotalSuccess = 0;
+	var lastGraphTotalWarning = 0;
+	var lastGraphTotalError = 0;
+	var graph = null;
+	var graphDataChanged = false;
+
 	function load() {
 		Healthcheck.list(function () {
 			// ?
@@ -207,49 +221,77 @@
 				if (graphTotal == 0) {
 					Util.showNoData('graph');
 				} else {
-					var graphDataSeries = [];
+					if (graphTotalSuccess != lastGraphTotalSuccess) {
+						lastGraphTotalSuccess = graphTotalSuccess;
+						graphDataChanged = true;
+					} else if (graphTotalWarning != lastGraphTotalWarning) {
+						lastGraphTotalWarning = graphTotalWarning;
+						graphDataChanged = true;
+					} else if (graphTotalError != lastGraphTotalError) {
+						lastGraphTotalError = graphTotalError;
+						graphDataChanged = true;
+					}
+
+					var graphDatasets = [];
 					var graphDataLabels = [];
+					var graphDataColors = [];
 
 					if (graphTotalSuccess > 0) {
-						graphDataSeries.push({
-							value: graphTotalSuccess,
-							className: "pie-chart-serie-success",
-							name: "success"
-						});
+						graphDatasets.push(graphTotalSuccess);
 						graphDataLabels.push('Success');
+						graphDataColors.push('#1bbf89');
 					}
 
 					if (graphTotalWarning > 0) {
-						graphDataSeries.push({
-							value: graphTotalWarning,
-							className: "pie-chart-serie-warning",
-							name: "warning"
-						});
+						graphDatasets.push(graphTotalWarning);
 						graphDataLabels.push('Warning');
+						graphDataColors.push('#f7af3e');
 					}
 
 					if (graphTotalError > 0) {
-						graphDataSeries.push({
-							value: graphTotalError,
-							className: "pie-chart-serie-error",
-							name: "error"
-						});
+						graphDatasets.push(graphTotalError);
 						graphDataLabels.push('Error');
+						graphDataColors.push('#DB524B');
 					}
 
 					var graphData = {
-						labels: graphDataLabels,
-						series: graphDataSeries
-					};
-
-					var options = {
-						labelInterpolationFnc: function (value) {
-							return value
+						animation: {
+							animateScale: false,
+							animateRotate: false
 						},
-						donut: true
+						labels: graphDataLabels,
+						datasets: [
+							{
+								data: graphDatasets,
+								backgroundColor: graphDataColors,
+								hoverBackgroundColor: graphDataColors
+							}
+						]
 					};
 
-					new Chartist.Pie('.ct-chart', graphData, options);
+					var graphContext = document.getElementById("graph");
+					var graphOptions = {
+						animation: false
+					};
+
+					if (Util.isNullOrUndefined(graph)) {
+						graph = new Chart(graphContext, {
+							type: 'doughnut',
+							data: graphData,
+							options: graphOptions
+						});
+					} else {
+						if (graphDataChanged) {
+							graphDataChanged = false;
+
+							graph.data.labels = graphData.labels;
+							graph.data.datasets = graphData.datasets;
+							graph.data.backgroundColor = graphData.backgroundColor;
+							graph.data.hoverBackgroundColor = graphData.hoverBackgroundColor;
+
+							graph.update();
+						}
+					}
 
 					Util.showData('graph');
 				}
@@ -266,8 +308,7 @@
 			autoLoad();
 		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
-			Util.showNoData();
-			Util.showNoData('graph');
+			Util.showErrorData("An error occurred while processing your request, try again!", "graph");
 			HealthcheckList.clearHealthcheckHtmlList();
 			HealthcheckList.clearList();
 			autoLoad();
