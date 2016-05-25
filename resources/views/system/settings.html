@@ -16,25 +16,29 @@
 
 <script>
 	function systemReload() {
-		System.reload(function () {
-			Util.showProgressWindow();
-		}, function (wr) {
-			Util.hideProgressWindow();
+		bootbox.confirm("Are you sure that you want reload all healthchecks and notifiers?", function (result) {
+			if (result) {
+				System.reload(function () {
+					Util.showProgressWindow();
+				}, function (wr) {
+					Util.hideProgressWindow();
 
-			var errorMessage = null;
+					var errorMessage = null;
 
-			if (wr.success) {
-				Util.showSuccessNotification("System reloaded!");
-			} else {
-				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+					if (wr.success) {
+						Util.showSuccessNotification("System reloaded!");
+					} else {
+						errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+					}
+
+					if (errorMessage) {
+						Util.showErrorNotification(errorMessage);
+					}
+				}, function () {
+					Util.hideProgressWindow();
+					Util.showErrorNotification("An error occurred while processing your request, try again!");
+				});
 			}
-
-			if (errorMessage) {
-				Util.showErrorNotification(errorMessage);
-			}
-		}, function () {
-			Util.hideProgressWindow();
-			Util.showErrorNotification("An error occurred while processing your request, try again!");
 		});
 	}
 </script>
