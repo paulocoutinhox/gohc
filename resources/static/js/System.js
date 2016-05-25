@@ -10,20 +10,20 @@ var System = new function () {
 			type: 'GET',
 			dataType: 'json',
 			success: function (response) {
-				setTimeout(function() {
-					var wr = new WebResponse().parse(response);
+				var wr = new WebResponse().parse(response);
 
-					if (!Util.isNullOrUndefined(success)) {
+				if (!Util.isNullOrUndefined(success)) {
+					Util.callAfterDelay(function () {
 						success(wr);
-					}
-				}, 1500);
+					});
+				}
 			},
 			error: function () {
-				setTimeout(function() {
-					if (!Util.isNullOrUndefined(error)) {
+				if (!Util.isNullOrUndefined(error)) {
+					Util.callAfterDelay(function () {
 						error();
-					}
-				}, 1500);
+					});
+				}
 			}
 		});
 	};
