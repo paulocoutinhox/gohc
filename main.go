@@ -37,6 +37,11 @@ func main() {
 		controller.Register()
 	}
 
+	{
+		controller := controllers.AboutController{}
+		controller.Register()
+	}
+
 	processor.CanRunHealthchecks = true
 	processor.StartHealthcheckProcessor()
 

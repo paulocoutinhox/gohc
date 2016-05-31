@@ -176,6 +176,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 	background-color: #f5f5f5;
 	border-top: 1px solid #ddd;
 	padding-top: 20px;
+	margin-top: 10px;
 }
 
 .wrap {
@@ -287,8 +288,7 @@ a.desc:after {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	padding: 10px;
-	margin: 10px;
-	margin-bottom: 20px;
+	margin: 10px 10px 20px 10px;
 }
 
 .options-container-title {
@@ -332,7 +332,7 @@ a.desc:after {
 }
 
 .container-dashboard #data {
-	padding: 10px;
+	padding: 0 10px 10px 10px;
 }
 
 .hiddenContent {
@@ -424,15 +424,19 @@ a.desc:after {
 }
 
 .healthcheck-item {
-	padding: 10px;
+	padding: 5px;
 }
 
 .healthcheck-item div {
 	border-radius: 5px;
-	padding: 10px;
+	padding: 5px;
 	border: 1px solid #777;
 	text-align: center;
 	width: 100%;
+}
+
+.healthcheck-item h5 {
+	margin: 5px;
 }
 
 .healthcheck-item.success div {
