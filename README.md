@@ -13,7 +13,12 @@ Some project features:
   - Type "range": will automatic change status by range values (can be float)
   - Type "manual": will change status using your sent status (work as a trigger)
 - Have a warm time configuration, to only start run healthchecks after it
-- Notification system based on plugins. Today we have CLI, Http Get, SendGrid, PushBullet and Slack plugins
+- Notification system based on plugins. Today GoHC implements its plugins:
+  - CLI
+  - Http Get
+  - SendGrid
+  - PushBullet
+  - Slack
 - You can reload your healthchecks and notifiers file from web and API - dont need restart the GoHC
 - The web interface is nice - made with bootstrap and AJAX
 - It is open-source, you can collaborate reporting bugs and upgrading it
