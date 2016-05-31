@@ -65,6 +65,10 @@ a.btn:hover {
 	padding-bottom: 10px;
 }
 
+.navbar-default .navbar-nav > li > a:hover {
+	color: #4fbc9c !important;
+}
+
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
 	color: #333333;
@@ -141,7 +145,7 @@ a.btn:hover {
 }
 
 .navbar-default .navbar-link:hover {
-	color: #4fbc9c;
+	color: #4fbc9c !important;
 }
 
 .navbar-default .btn-link {
@@ -377,18 +381,6 @@ a.desc:after {
 
 .tab-pane-output-group .panel .panel-body {
 	word-wrap: break-word;
-}
-
-.pie-chart-serie-warning {
-	stroke: #f8ac59;
-}
-
-.pie-chart-serie-success {
-	stroke: #1ab394;
-}
-
-.pie-chart-serie-error {
-	stroke: #ed5565;
 }
 
 .toast-success {
