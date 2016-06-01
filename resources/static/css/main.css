@@ -11,14 +11,14 @@ body {
 	outline: none !important;
 }
 
-a {
+a, a:link {
 	text-decoration: none;
 	color: #000 !important;
 }
 
-a:focus {
+a:visited {
 	text-decoration: none;
-	color: #4fbc9c !important;
+	color: #000 !important;
 }
 
 a:hover {
@@ -26,9 +26,9 @@ a:hover {
 	color: #4fbc9c !important;
 }
 
-a:visited {
+a:focus {
 	text-decoration: none;
-	color: #000 !important;
+	color: #4fbc9c !important;
 }
 
 a.btn:focus {
@@ -176,7 +176,6 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 	background-color: #f5f5f5;
 	border-top: 1px solid #ddd;
 	padding-top: 20px;
-	margin-top: 10px;
 }
 
 .wrap {
@@ -196,13 +195,6 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .wrap > .container-dashboard {
 	padding: 0;
-}
-
-.footer {
-	height: 60px;
-	background-color: #f5f5f5;
-	border-top: 1px solid #ddd;
-	padding-top: 20px;
 }
 
 .jumbotron {
@@ -332,7 +324,7 @@ a.desc:after {
 }
 
 .container-dashboard #data {
-	padding: 0 10px 10px 10px;
+	padding: 0 5px;
 }
 
 .hiddenContent {
