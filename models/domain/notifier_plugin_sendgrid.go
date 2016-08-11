@@ -2,6 +2,7 @@ package domain
 
 import (
 	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 	"log"
 )
 
@@ -73,19 +74,26 @@ func (This *NotifierPluginSendGrid) GetId() string {
 }
 
 func (This *NotifierPluginSendGrid) SendEmail(mailSubject string, mailBody string, mailFromEmail string, mailFromName string, mailToList []string, sendGridKey string) error {
-	sg := sendgrid.NewSendGridClientWithApiKey(sendGridKey)
+	// create the message
+	message := mail.NewV3Mail()
+	message.From = mail.NewEmail(mailFromName, mailFromEmail)
+	message.Subject = mailSubject
 
-	message := sendgrid.NewMail()
+	content := []*mail.Content{}
+	content = append(content, mail.NewContent("text/html", mailBody))
+	message.Content = content
 
 	for _, mailTo := range mailToList {
-		message.AddTo(mailTo)
+		p := mail.NewPersonalization()
+		p.AddTos(mail.NewEmail("", mailTo))
+		message.AddPersonalizations(p)
 	}
 
-	message.SetFrom(mailFromEmail)
-	message.SetFromName(mailFromName)
+	// create the request to API
+	request := sendgrid.GetRequest(sendGridKey, "/v3/mail/send", "https://api.sendgrid.com")
+	request.Method = "POST"
+	request.Body = mail.GetRequestBody(message)
+	_, err := sendgrid.API(request)
 
-	message.SetSubject(mailSubject)
-	message.SetHTML(mailBody)
-
-	return sg.Send(message)
+	return err
 }
