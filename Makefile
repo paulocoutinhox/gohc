@@ -16,9 +16,6 @@ format:
 	${GOFMT} main.go
 	${GOFMT} app/server.go
 	${GOFMT} controllers/api.go
-	${GOFMT} controllers/dashboard.go
-	${GOFMT} controllers/healthcheck.go
-	${GOFMT} controllers/home.go
 	${GOFMT} models/domain/healthcheck.go
 	${GOFMT} models/domain/healthcheck_notifier.go
 	${GOFMT} models/domain/healthchecks_file.go
@@ -36,6 +33,8 @@ format:
 	${GOFMT} models/util/util.go
 	${GOFMT} models/warm/warm.go
 	${GOFMT} processor/processor.go
+	${GOFMT} app/binaryFS.go
+	${GOFMT} template/template.go
 
 test:
 
@@ -46,6 +45,7 @@ deps:
 	${GODEPS} github.com/sendgrid/sendgrid-go
 	${GODEPS} github.com/mitsuse/pushbullet-go
 	${GODEPS} github.com/bluele/slack
+	${GODEPS} github.com/elazarl/go-bindata-assetfs
 
 stop:
 	pkill -f ${PROJECT}
@@ -59,3 +59,12 @@ update:
 	git pull origin master
 	make deps
 	make install
+
+build-all:
+	rm -rf build
+	mkdir -p build/darwin64
+	env GOOS=darwin GOARCH=amd64 go build -o build/darwin64/gohc -v github.com/prsolucoes/gohc
+	mkdir -p build/windows32
+	env GOOS=windows GOARCH=386 go build -o build/windows32/gohc -v github.com/prsolucoes/gohc
+	mkdir -p build/windows64
+	env GOOS=windows GOARCH=amd64 go build -o build/windows64/gohc -v github.com/prsolucoes/gohc

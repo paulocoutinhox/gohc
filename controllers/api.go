@@ -140,6 +140,7 @@ func (This *APIController) APIHealthcheckList(c *gin.Context) {
 	response.Success = true
 	response.Message = ""
 	response.AddData("list", processor.Healthchecks)
+	response.AddData("count", len(processor.Healthchecks))
 	c.JSON(200, response)
 }
 

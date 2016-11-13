@@ -2,17 +2,20 @@ package app
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
+	"fmt"
+	"github.com/gin-gonic/contrib/gzip"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
+	"github.com/prsolucoes/gohc/assets"
 	"github.com/prsolucoes/gohc/models/domain"
 	"github.com/prsolucoes/gohc/models/warm"
 	"github.com/prsolucoes/gohc/processor"
 	"io/ioutil"
 	"log"
 	"strconv"
-	"errors"
-	"fmt"
 )
 
 type WebServer struct {
@@ -20,7 +23,6 @@ type WebServer struct {
 	Config       *ini.File
 	Host         string
 	WorkspaceDir string
-	ResourcesDir string
 }
 
 var (
@@ -33,13 +35,25 @@ func NewWebServer() *WebServer {
 	gin.SetMode(gin.ReleaseMode)
 	server.Router = gin.New()
 	server.Router.Use(gin.Recovery())
+	server.Router.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	return server
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir+"/static")
+	This.Router.NoRoute(This.RouteGeneral)
+	This.Router.Use(static.Serve("/web-app", BinaryFileSystem("web-app")))
 	log.Println("Router creation : OK")
+}
+
+func (This *WebServer) RouteGeneral(c *gin.Context) {
+	data, err := assets.Asset("web-app/index.html")
+
+	if err != nil {
+		// asset was not found.
+	}
+
+	c.Data(200, "text/html", data)
 }
 
 func (This *WebServer) LoadHealthchecks(healthchecks []*domain.Healthcheck, notifiers []*domain.Notifier) error {
@@ -194,7 +208,6 @@ func (This *WebServer) LoadConfiguration() {
 		if err != nil {
 			This.Host = ":8080"
 			This.WorkspaceDir = ""
-			This.ResourcesDir = ""
 			warm.WarmTime = (1000 * 60) // 1 minute
 		} else {
 			{
@@ -212,12 +225,6 @@ func (This *WebServer) LoadConfiguration() {
 				// workspace
 				workspaceDir := serverSection.Key("workspaceDir").Value()
 				This.WorkspaceDir = workspaceDir
-			}
-
-			{
-				// resources dir
-				resourcesDir := serverSection.Key("resourcesDir").Value()
-				This.ResourcesDir = resourcesDir
 			}
 
 			{
