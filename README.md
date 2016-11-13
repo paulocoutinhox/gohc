@@ -33,7 +33,6 @@ Example of:
 [server]
 host = :8080
 workspaceDir = YOUR-WORKSPACE-DIRECTORY
-resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/gohc
 warmTime = 10
 ```
 
