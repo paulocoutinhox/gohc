@@ -1,6 +1,3 @@
-# Support with donation
-[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
-
 # GoHC
 
 GoHC was made to be a simple and light healthcheck system made with Go (Golang).
@@ -94,6 +91,9 @@ Today, only some functions are implemented. If you need one, you can make a pull
 # License
 
 MIT
+
+# Support with donation
+[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
 
 # Screenshots
 
