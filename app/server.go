@@ -1,28 +1,22 @@
 package app
 
 import (
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
-	"github.com/go-ini/ini"
 	"github.com/prsolucoes/gohc/assets"
 	"github.com/prsolucoes/gohc/models/domain"
 	"github.com/prsolucoes/gohc/models/warm"
-	"github.com/prsolucoes/gohc/processor"
-	"io/ioutil"
 	"log"
-	"strconv"
 )
 
 type WebServer struct {
-	Router       *gin.Engine
-	Config       *ini.File
-	Host         string
-	WorkspaceDir string
+	Router            *gin.Engine
+	Configuration     *domain.Configuration
+	ConfigurationFile string
 }
 
 var (
@@ -85,8 +79,6 @@ func (This *WebServer) LoadHealthchecks(healthchecks []*domain.Healthcheck, noti
 		}
 	}
 
-	processor.Healthchecks = healthchecks
-
 	log.Printf("Loading %v notifiers plugin...", len(notifiers))
 
 	domain.NotifierManagerClearPlugins()
@@ -142,31 +134,26 @@ func (This *WebServer) LoadHealthchecks(healthchecks []*domain.Healthcheck, noti
 		}
 	}
 
-	log.Printf("Data was loaded with success!")
+	This.Configuration.Healthchecks = healthchecks
+	This.Configuration.Notifiers = notifiers
+
+	log.Println("Data was loaded with success!")
 
 	return nil
 }
 
 func (This *WebServer) TestHealthchecksFile(load bool) error {
-	fileName := This.WorkspaceDir + "/healthchecks.json"
+	log.Printf("Loading healthcheck list from file: %v...", This.ConfigurationFile)
 
-	log.Printf("Loading healthcheck list file: %v", fileName)
-	file, err := ioutil.ReadFile(fileName)
-
-	if err != nil {
-		return errors.New(fmt.Sprintf("Failed to load healthchecks file: %v", err))
-	}
-
-	healthcheckFile := domain.HealthchecksFile{}
-
-	err = json.Unmarshal(file, &healthcheckFile)
+	// read configuration file
+	configuration, err := domain.NewConfigurationFromFile(This.ConfigurationFile)
 
 	if err != nil {
-		return errors.New(fmt.Sprintf("Failed to read healthchecks file: %v", err))
+		log.Printf("Failed to load configuration file: %v", err)
 	}
 
-	healthchecks := healthcheckFile.Healthchecks
-	notifiers := healthcheckFile.Notifiers
+	healthchecks := configuration.Healthchecks
+	notifiers := configuration.Notifiers
 
 	for i, healthcheck := range healthchecks {
 		if healthcheck.Type == domain.HEALTHCHECK_TYPE_PING {
@@ -184,7 +171,7 @@ func (This *WebServer) TestHealthchecksFile(load bool) error {
 		}
 	}
 
-	log.Printf("Healthchecks file (%v) tested : OK", fileName)
+	log.Printf("Healthchecks file (%v) tested : OK", This.ConfigurationFile)
 
 	if load {
 		return This.LoadHealthchecks(healthchecks, notifiers)
@@ -194,61 +181,33 @@ func (This *WebServer) TestHealthchecksFile(load bool) error {
 }
 
 func (This *WebServer) LoadConfiguration() {
+	// load from args
 	var configFileName = ""
-	flag.StringVar(&configFileName, "f", "config.ini", "set config.ini location")
+	flag.StringVar(&configFileName, "f", "config.json", "set config.json location")
 	flag.Parse()
 
-	config, err := ini.Load([]byte(""), configFileName)
-
-	if err == nil {
-		This.Config = config
-
-		serverSection, err := config.GetSection("server")
-
-		if err != nil {
-			This.Host = ":8080"
-			This.WorkspaceDir = ""
-			warm.WarmTime = (1000 * 60) // 1 minute
-		} else {
-			{
-				// host
-				host := serverSection.Key("host").Value()
-
-				if host == "" {
-					host = ":8080"
-				}
-
-				This.Host = host
-			}
-
-			{
-				// workspace
-				workspaceDir := serverSection.Key("workspaceDir").Value()
-				This.WorkspaceDir = workspaceDir
-			}
-
-			{
-				// warm time
-				warmTime := serverSection.Key("warmTime").Value()
-				value, err := strconv.ParseInt(warmTime, 10, 64)
-
-				if err != nil {
-					log.Fatalf("Configuration file load error : %s", err.Error())
-				}
-
-				warm.WarmTime = value
-			}
-		}
-
-		log.Println("Configuration file load : OK")
+	if len(configFileName) > 0 {
+		This.ConfigurationFile = configFileName
 	} else {
-		log.Fatalf("Configuration file load error : %s", err.Error())
+		log.Fatal("Failed to load configuration file")
 	}
+
+	// read configuration file
+	configuration, err := domain.NewConfigurationFromFile(This.ConfigurationFile)
+
+	if err != nil {
+		log.Fatalf("Failed to load configuration file: %v", err)
+	}
+
+	This.Configuration = configuration
+
+	// warm time
+	warm.WarmTime = This.Configuration.Server.WarmTime
 }
 
 func (This *WebServer) Start() {
-	log.Printf("Open GoHC on your browser: %v", This.Host)
-	err := This.Router.Run(This.Host)
+	log.Printf("Open GoHC on your browser: %v", This.Configuration.Server.Host)
+	err := This.Router.Run(This.Configuration.Server.Host)
 
 	if err != nil {
 		log.Fatalf("Server not started: %v", err)

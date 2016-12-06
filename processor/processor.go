@@ -2,6 +2,7 @@ package processor
 
 import (
 	"errors"
+	"github.com/prsolucoes/gohc/app"
 	"github.com/prsolucoes/gohc/models/domain"
 	"github.com/prsolucoes/gohc/models/warm"
 	"log"
@@ -9,7 +10,6 @@ import (
 )
 
 var (
-	Healthchecks                []*domain.Healthcheck
 	CanRunHealthchecks          bool
 	HealthchecksProcessorTicker *time.Ticker
 )
@@ -21,18 +21,18 @@ func StartHealthcheckProcessor() {
 	go func() {
 		for range HealthchecksProcessorTicker.C {
 			if CanRunHealthchecks {
-				for _, healthcheck := range Healthchecks {
+				for _, healthcheck := range app.Server.Configuration.Healthchecks {
 					go healthcheck.Run()
 				}
 			}
 		}
 	}()
 
-	log.Printf("Healthcheck processor started : OK")
+	log.Println("Healthcheck processor started : OK")
 }
 
 func HealthcheckByToken(token string) (*domain.Healthcheck, error) {
-	for _, healthcheck := range Healthchecks {
+	for _, healthcheck := range app.Server.Configuration.Healthchecks {
 		if healthcheck.Token == token {
 			return healthcheck, nil
 		}

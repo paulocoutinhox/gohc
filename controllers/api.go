@@ -131,7 +131,7 @@ func (This *APIController) APIHealthcheckCount(c *gin.Context) {
 	response := new(gowebresponse.WebResponse)
 	response.Success = true
 	response.Message = ""
-	response.AddData("count", len(processor.Healthchecks))
+	response.AddData("count", len(app.Server.Configuration.Healthchecks))
 	c.JSON(200, response)
 }
 
@@ -139,8 +139,8 @@ func (This *APIController) APIHealthcheckList(c *gin.Context) {
 	response := new(gowebresponse.WebResponse)
 	response.Success = true
 	response.Message = ""
-	response.AddData("list", processor.Healthchecks)
-	response.AddData("count", len(processor.Healthchecks))
+	response.AddData("list", app.Server.Configuration.Healthchecks)
+	response.AddData("count", len(app.Server.Configuration.Healthchecks))
 	c.JSON(200, response)
 }
 

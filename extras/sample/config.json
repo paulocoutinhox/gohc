@@ -1,0 +1,175 @@
+{
+	"server": {
+		"host": "0.0.0.0:8080",
+		"warmTime": 60000
+	},
+	"healthchecks": [
+		{
+			"token": "site",
+			"description": "My web site",
+			"type": "ping",
+			"ranges": [
+				5000,
+				10000
+			],
+			"warningNotifiers": [
+				{
+					"id": "cli-test",
+					"interval": 86400000,
+					"params": {}
+				},
+				{
+					"id": "cli-test",
+					"interval": 10000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 86400000
+				},
+				{
+					"id": "slack-webhook-test",
+					"interval": 100000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "cli-test",
+					"interval": 86400000,
+					"params": {}
+				},
+				{
+					"id": "cli-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 86400000
+				},
+				{
+					"id": "pushbullet-test",
+					"interval": 86400000
+				},
+				{
+					"id": "slack-webhook-test",
+					"interval": 100000
+				}
+			]
+		},
+		{
+			"token": "blog",
+			"description": "My blog",
+			"type": "ping",
+			"ranges": [
+				5000.0,
+				10000.0
+			]
+		},
+		{
+			"token": "site-range",
+			"description": "My web site range",
+			"type": "range",
+			"ranges": [
+				5000,
+				10000
+			],
+			"warningNotifiers": [
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "httpget-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			]
+		},
+		{
+			"token": "blog-range",
+			"description": "My blog range",
+			"type": "range",
+			"ranges": [
+				5.0,
+				10.1
+			]
+		},
+		{
+			"token": "site-manual",
+			"description": "My web site manual",
+			"type": "manual",
+			"warningNotifiers": [
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			],
+			"errorNotifiers": [
+				{
+					"id": "httpget-test",
+					"interval": 10000
+				},
+				{
+					"id": "sendgrid-test",
+					"interval": 360000
+				}
+			]
+		},
+		{
+			"token": "blog-manual",
+			"description": "My blog manual",
+			"type": "manual"
+		}
+	],
+	"notifiers": [
+		{
+			"id": "cli-test",
+			"plugin": "cli",
+			"params": {
+				"command": "[change]"
+			}
+		},
+		{
+			"id": "httpget-test",
+			"plugin": "httpget",
+			"params": {
+				"url": "[change]"
+			}
+		},
+		{
+			"id": "sendgrid-test",
+			"plugin": "sendgrid",
+			"params": {
+				"to": [
+					"[change]"
+				],
+				"fromEmail": "[change]",
+				"fromName": "[change]",
+				"key": "[change]"
+			}
+		},
+		{
+			"id": "pushbullet-test",
+			"plugin": "pushbullet",
+			"params": {
+				"accessToken": "[change]",
+				"deviceIden": "",
+				"email": "",
+				"channelTag": "",
+				"clientIden": ""
+			}
+		},
+		{
+			"id": "slack-webhook-test",
+			"plugin": "slackwebhook",
+			"params": {
+				"url": "[change]",
+				"channel": ""
+			}
+		}
+	]
+}

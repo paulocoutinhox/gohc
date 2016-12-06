@@ -9,7 +9,7 @@ Some project features:
   - Type "ping": will automatic change status by ping time
   - Type "range": will automatic change status by range values (can be float)
   - Type "manual": will change status using your sent status (work as a trigger)
-- Have a warm time configuration, to only start run healthchecks after it
+- Have a warm time configuration, to only start run healthchecks after it (time is in milliseconds and is optional)
 - Notification system based on plugins. Today GoHC implements its plugins:
   - CLI
   - Http Get
@@ -25,15 +25,23 @@ You can see healthcheck list sample file with notifications inside: **extras/sam
 
 # Configuration
 
-GoHC configuration is a simple INI file called "config.ini".
+GoHC configuration is a simple JSON file called "config.json" or what name you want.
 
-Example of:
+Example of configuration file:
 
 ```
-[server]
-host = :8080
-workspaceDir = YOUR-WORKSPACE-DIRECTORY
-warmTime = 10
+{
+    "server": {
+		"host": "0.0.0.0:8080",
+		"warmTime": 60000
+	},
+	"healthchecks": [
+	
+	],
+	"notifiers": [
+	
+	]
+}
 ```
 
 # Sample files
@@ -46,11 +54,9 @@ I have created a sample healthcheck file and a sample config file. Check it on *
 2. Execute: cd $GOPATH/src/github.com/prsolucoes/gohc
 3. Execute: make deps  
 4. Execute: make install  
-5. Create config file (config.ini) based on some above example  
-6. Execute: gohc -f=config.ini
+5. Create config file (config.json) based on some above example  
+6. Execute: gohc -f config.json
 7. Open in your browser: http://localhost:8080  
-
-** dont use character / on any configuration path **
 
 # API
 
@@ -73,7 +79,7 @@ So if you want start your server for example, you only need call "make start".
 # Alternative method to Build and Start project
 
 1. go build
-2. ./gohc -f=config.ini
+2. ./gohc -f config.json
 
 # Sugestion
 
