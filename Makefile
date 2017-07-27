@@ -3,8 +3,22 @@ LOG_FILE=/var/log/${PROJECT}.log
 GOFMT=gofmt -w
 GODEPS=go get -u
 
-GOFILES=\
-	main.go\
+.DEFAULT_GOAL := help
+
+# general
+help:
+	@echo "Type: make [rule]. Available options are:"
+	@echo ""
+	@echo "- help"
+	@echo "- build"
+	@echo "- install"
+	@echo "- format"
+	@echo "- deps"
+	@echo "- stop"
+	@echo "- start"
+	@echo "- update"
+	@echo "- build-all"
+	@echo ""
 
 build:
 	go build -o ${PROJECT}
@@ -34,8 +48,6 @@ format:
 	${GOFMT} models/warm/warm.go
 	${GOFMT} processor/processor.go
 	${GOFMT} template/template.go
-
-test:
 
 deps:
 	${GODEPS} github.com/prsolucoes/gowebresponse
@@ -71,7 +83,7 @@ build-all:
 	env GOOS=darwin GOARCH=amd64 go build -o build/darwin64/gohc -v github.com/prsolucoes/gohc
 
 	mkdir -p build/windows32
-	env GOOS=windows GOARCH=386 go build -o build/windows32/gohc -v github.com/prsolucoes/gohc
+	env GOOS=windows GOARCH=386 go build -o build/windows32/gohc.exe -v github.com/prsolucoes/gohc
 
 	mkdir -p build/windows64
-	env GOOS=windows GOARCH=amd64 go build -o build/windows64/gohc -v github.com/prsolucoes/gohc
+	env GOOS=windows GOARCH=amd64 go build -o build/windows64/gohc.exe -v github.com/prsolucoes/gohc
