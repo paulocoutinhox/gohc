@@ -38,7 +38,7 @@ func (This *NotifierPluginSlackWebHook) Notify(healthcheck Healthcheck, healthch
 	}
 
 	messageBody := SlackCreateMessage(healthcheck, healthcheckNotifier)
-	messageAttachement := SlackCreateAttachement(healthcheck, healthcheckNotifier)
+	messageAttachement := SlackCreateAttachment(healthcheck, healthcheckNotifier)
 
 	log.Printf("NotifierPluginSlackWebHook : message to send (to: %v)", messageBody)
 	err := This.SendSlack(webHookURL, channel, messageBody, messageAttachement)

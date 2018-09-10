@@ -32,12 +32,14 @@ func SlackCreateMessage(healthcheck Healthcheck, healthcheckNotifier Healthcheck
 		body = strings.Replace(body, "[status-color]", "#f8ac59", -1)
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		body = strings.Replace(body, "[status-color]", "#ed5565", -1)
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		body = strings.Replace(body, "[status-color]", "#263238", -1)
 	}
 
 	return body
 }
 
-func SlackCreateAttachement(healthcheck Healthcheck, healthcheckNotifier HealthcheckNotifier) *slack.Attachment {
+func SlackCreateAttachment(healthcheck Healthcheck, healthcheckNotifier HealthcheckNotifier) *slack.Attachment {
 	attachment := &slack.Attachment{}
 	body := ""
 	title := `New [status] alert!`
@@ -69,6 +71,9 @@ func SlackCreateAttachement(healthcheck Healthcheck, healthcheckNotifier Healthc
 		attachment.Color = "#f8ac59"
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		body = strings.Replace(body, "[status-color]", "#ed5565", -1)
+		attachment.Color = "#ed5565"
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		body = strings.Replace(body, "[status-color]", "#263238", -1)
 		attachment.Color = "#ed5565"
 	}
 

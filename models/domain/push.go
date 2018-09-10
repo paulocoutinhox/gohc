@@ -37,6 +37,8 @@ func PushCreateMessage(healthcheck Healthcheck, healthcheckNotifier HealthcheckN
 		body = strings.Replace(body, "[status-color]", "#f8ac59", -1)
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		body = strings.Replace(body, "[status-color]", "#ed5565", -1)
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		body = strings.Replace(body, "[status-color]", "#263238", -1)
 	}
 
 	return body

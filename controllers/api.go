@@ -20,6 +20,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/healthcheck/count", This.APIHealthcheckCount)
 	app.Server.Router.GET("/api/healthcheck/list", This.APIHealthcheckList)
 	app.Server.Router.GET("/api/system/reload", This.APISystemReload)
+
 	log.Println("APIController register : OK")
 }
 
