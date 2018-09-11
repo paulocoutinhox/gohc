@@ -106,8 +106,7 @@ Today, only some functions are implemented. If you need one, you can make a pull
 
 **# HEALTHCHECK DASHBOARD - SMARTPHONE**
 
-![SS5](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
-
+<img src="https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot5.png" alt="Screenshot 5" style="max-width: 300px">  
 
 # Supported By Jetbrains IntelliJ IDEA
 
