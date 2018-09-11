@@ -26,7 +26,7 @@ type Healthcheck struct {
 	Ranges           []float64              `json:"ranges"`
 	Status           string                 `json:"status"`
 	Type             string                 `json:"type"`
-	UpdateTimeout    int64                  `json:"updateTimeout"`
+	Timeout          int64                  `json:"timeout"`
 	WarningNotifiers []*HealthcheckNotifier `json:"warningNotifiers"`
 	ErrorNotifiers   []*HealthcheckNotifier `json:"errorNotifiers"`
 	TimeoutNotifiers []*HealthcheckNotifier `json:"timeoutNotifiers"`
@@ -102,7 +102,7 @@ func (This *Healthcheck) NotifyErrorStatus() {
 
 func (This *Healthcheck) NotifyTimeoutStatus() {
 	if warm.InWarmTime() {
-		log.Println("Healthcheck : UpdateTimeout alerts not sent, warm time running")
+		log.Println("Healthcheck : Timeout alerts not sent, warm time running")
 		return
 	}
 
@@ -140,9 +140,9 @@ func (This *Healthcheck) UpdatePing() {
 }
 
 func (This *Healthcheck) UpdateTimeoutData() {
-	if This.UpdateTimeout > 0 {
+	if This.Timeout > 0 {
 		currentTime := This.GetCurrentTimeInMS()
-		updateTimeoutTime := This.LastUpdateAt + This.UpdateTimeout
+		updateTimeoutTime := This.LastUpdateAt + This.Timeout
 
 		if currentTime > updateTimeoutTime {
 			This.SetStatusTimeout()

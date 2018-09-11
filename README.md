@@ -1,6 +1,6 @@
 # GoHC
 
-GoHC was made to be a simple and light healthcheck system made with Go (Golang).
+GoHC was made to be a simple and lightweight healthcheck system made with Go (Golang).
 
 Some project features:
 - Lightweight (< 5 MB RAM memory)
@@ -10,6 +10,7 @@ Some project features:
   - Type "range": will automatic change status by range values (can be float)
   - Type "manual": will change status using your sent status (work as a trigger)
 - Have a warm time configuration, to only start run healthchecks after it (time is in milliseconds and is optional)
+- Have a active timeout check for manual and range type (time is in milliseconds and is optional)
 - Notification system based on plugins. Today GoHC implements its plugins:
   - CLI
   - Http Get
@@ -17,7 +18,7 @@ Some project features:
   - PushBullet
   - Slack
 - You can reload your healthchecks and notifiers file from web and API - dont need restart the GoHC
-- The web interface is nice - made with bootstrap and AJAX
+- The web interface is nice - made with Bulma and Vue.js
 - It is open-source, you can collaborate reporting bugs and upgrading it
 - You can DONATE!
 

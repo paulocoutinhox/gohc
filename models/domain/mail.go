@@ -13,6 +13,8 @@ func MailCreateSubject(healthcheck Healthcheck, healthcheckNotifier HealthcheckN
 		return fmt.Sprintf("Healthcheck - %v - Warning", healthcheck.Description)
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		return fmt.Sprintf("Healthcheck - %v - Error", healthcheck.Description)
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		return fmt.Sprintf("Healthcheck - %v - Timeout", healthcheck.Description)
 	}
 
 	return ""
@@ -79,6 +81,8 @@ func MailCreateBody(healthcheck Healthcheck, healthcheckNotifier HealthcheckNoti
 	} else if healthcheck.Type == HEALTHCHECK_TYPE_RANGE {
 		body = strings.Replace(body, "[type-text]", "Range value", -1)
 		body = strings.Replace(body, "[type-value]", strconv.FormatFloat(healthcheck.Range, 'f', 2, 64), -1)
+	} else if healthcheck.Type == HEALTHCHECK_TYPE_MANUAL {
+		body = strings.Replace(body, "[type-text]", "Manual", -1)
 	}
 
 	if healthcheck.Status == HEALTHCHECK_STATUS_SUCCESS {
@@ -87,6 +91,8 @@ func MailCreateBody(healthcheck Healthcheck, healthcheckNotifier HealthcheckNoti
 		body = strings.Replace(body, "[status-color]", "#f8ac59", -1)
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		body = strings.Replace(body, "[status-color]", "#ed5565", -1)
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		body = strings.Replace(body, "[status-color]", "#263238", -1)
 	}
 
 	return body

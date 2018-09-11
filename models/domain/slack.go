@@ -74,7 +74,7 @@ func SlackCreateAttachment(healthcheck Healthcheck, healthcheckNotifier Healthch
 		attachment.Color = "#ed5565"
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
 		body = strings.Replace(body, "[status-color]", "#263238", -1)
-		attachment.Color = "#ed5565"
+		attachment.Color = "#263238"
 	}
 
 	attachment.MarkdownIn = []string{"text", "preText", "fields"}
