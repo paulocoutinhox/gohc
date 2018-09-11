@@ -86,21 +86,6 @@ So if you want start your server for example, you only need call "make start".
 
 Today, only some functions are implemented. If you need one, you can make a pull-request or send a message in Github Issue.
 
-# Supported By Jetbrains IntelliJ IDEA
-
-![Supported By Jetbrains IntelliJ IDEA](https://github.com/prsolucoes/gohc/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
-
-# Author WebSite
-
-> http://www.pcoutinho.com
-
-# License
-
-MIT
-
-# Support with donation
-[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
-
 # Screenshots
 
 **# HOME**
@@ -124,3 +109,17 @@ MIT
 ![SS5](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
 
 
+# Supported By Jetbrains IntelliJ IDEA
+
+![Supported By Jetbrains IntelliJ IDEA](https://github.com/prsolucoes/gohc/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
+
+# Author WebSite
+
+> http://www.pcoutinho.com
+
+# License
+
+MIT
+
+# Support with donation
+[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
