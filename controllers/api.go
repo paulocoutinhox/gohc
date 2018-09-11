@@ -20,6 +20,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/healthcheck/count", This.APIHealthcheckCount)
 	app.Server.Router.GET("/api/healthcheck/list", This.APIHealthcheckList)
 	app.Server.Router.GET("/api/system/reload", This.APISystemReload)
+
 	log.Println("APIController register : OK")
 }
 
@@ -95,16 +96,19 @@ func (This *APIController) APIUpdateManual(c *gin.Context) {
 		if healthcheck.Type == domain.HEALTHCHECK_TYPE_MANUAL {
 			if healthcheckStatus == domain.HEALTHCHECK_STATUS_SUCCESS {
 				healthcheck.SetStatusSuccess()
+				healthcheck.SetLastUpdateAtCurrentTime()
 
 				response.Success = true
 				response.Message = "updated"
 			} else if healthcheckStatus == domain.HEALTHCHECK_STATUS_WARNING {
 				healthcheck.SetStatusWarning()
+				healthcheck.SetLastUpdateAtCurrentTime()
 
 				response.Success = true
 				response.Message = "updated"
 			} else if healthcheckStatus == domain.HEALTHCHECK_STATUS_ERROR {
 				healthcheck.SetStatusError()
+				healthcheck.SetLastUpdateAtCurrentTime()
 
 				response.Success = true
 				response.Message = "updated"

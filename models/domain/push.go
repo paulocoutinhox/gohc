@@ -29,6 +29,8 @@ func PushCreateMessage(healthcheck Healthcheck, healthcheckNotifier HealthcheckN
 	} else if healthcheck.Type == HEALTHCHECK_TYPE_RANGE {
 		body = strings.Replace(body, "[type-text]", "Range", -1)
 		body = strings.Replace(body, "[type-value]", strconv.FormatFloat(healthcheck.Range, 'f', 2, 64), -1)
+	} else if healthcheck.Type == HEALTHCHECK_TYPE_MANUAL {
+		body = strings.Replace(body, "[type-text]", "Manual", -1)
 	}
 
 	if healthcheck.Status == HEALTHCHECK_STATUS_SUCCESS {
@@ -37,6 +39,8 @@ func PushCreateMessage(healthcheck Healthcheck, healthcheckNotifier HealthcheckN
 		body = strings.Replace(body, "[status-color]", "#f8ac59", -1)
 	} else if healthcheck.Status == HEALTHCHECK_STATUS_ERROR {
 		body = strings.Replace(body, "[status-color]", "#ed5565", -1)
+	} else if healthcheck.Status == HEALTHCHECK_STATUS_TIMEOUT {
+		body = strings.Replace(body, "[status-color]", "#263238", -1)
 	}
 
 	return body

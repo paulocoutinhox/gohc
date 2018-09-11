@@ -10,6 +10,7 @@ const (
 	HEALTHCHECK_STATUS_SUCCESS = "success"
 	HEALTHCHECK_STATUS_WARNING = "warning"
 	HEALTHCHECK_STATUS_ERROR   = "error"
+	HEALTHCHECK_STATUS_TIMEOUT = "timeout"
 
 	HEALTHCHECK_TYPE_PING   = "ping"
 	HEALTHCHECK_TYPE_RANGE  = "range"
@@ -25,8 +26,10 @@ type Healthcheck struct {
 	Ranges           []float64              `json:"ranges"`
 	Status           string                 `json:"status"`
 	Type             string                 `json:"type"`
+	Timeout          int64                  `json:"timeout"`
 	WarningNotifiers []*HealthcheckNotifier `json:"warningNotifiers"`
 	ErrorNotifiers   []*HealthcheckNotifier `json:"errorNotifiers"`
+	TimeoutNotifiers []*HealthcheckNotifier `json:"timeoutNotifiers"`
 }
 
 func (This *Healthcheck) Run() {
@@ -52,12 +55,16 @@ func (This *Healthcheck) Run() {
 			This.Status = HEALTHCHECK_STATUS_ERROR
 			This.NotifyErrorStatus()
 		}
+
+		This.UpdateTimeoutData()
 	} else if This.Type == HEALTHCHECK_TYPE_MANUAL {
 		if This.Status == HEALTHCHECK_STATUS_WARNING {
 			This.NotifyWarningStatus()
 		} else if This.Status == HEALTHCHECK_STATUS_ERROR {
 			This.NotifyErrorStatus()
 		}
+
+		This.UpdateTimeoutData()
 	}
 }
 
@@ -93,6 +100,22 @@ func (This *Healthcheck) NotifyErrorStatus() {
 	}
 }
 
+func (This *Healthcheck) NotifyTimeoutStatus() {
+	if warm.InWarmTime() {
+		log.Println("Healthcheck : Timeout alerts not sent, warm time running")
+		return
+	}
+
+	if This.TimeoutNotifiers != nil {
+		for _, notifier := range This.TimeoutNotifiers {
+			if notifier.CanSendNotification() {
+				log.Println("Healthcheck : Started process to send timeout notifications")
+				go NotifierManagerProcess(*This, *notifier)
+			}
+		}
+	}
+}
+
 func (This *Healthcheck) SetLastUpdateAtCurrentTime() {
 	This.LastUpdateAt = This.GetCurrentTimeInMS()
 }
@@ -116,8 +139,20 @@ func (This *Healthcheck) UpdatePing() {
 	This.Ping = currentTime - lastPingTime
 }
 
+func (This *Healthcheck) UpdateTimeoutData() {
+	if This.Timeout > 0 {
+		currentTime := This.GetCurrentTimeInMS()
+		updateTimeoutTime := This.LastUpdateAt + This.Timeout
+
+		if currentTime > updateTimeoutTime {
+			This.SetStatusTimeout()
+			This.NotifyTimeoutStatus()
+		}
+	}
+}
+
 func (This *Healthcheck) InSuccessRange(value float64) bool {
-	return (value <= This.Ranges[0])
+	return value <= This.Ranges[0]
 }
 
 func (This *Healthcheck) InWarningRange(value float64) bool {
@@ -125,7 +160,7 @@ func (This *Healthcheck) InWarningRange(value float64) bool {
 		return false
 	}
 
-	return (value <= This.Ranges[1])
+	return value <= This.Ranges[1]
 }
 
 func (This *Healthcheck) InErrorRange(value float64) bool {
@@ -133,7 +168,7 @@ func (This *Healthcheck) InErrorRange(value float64) bool {
 		return false
 	}
 
-	return (value > This.Ranges[1])
+	return value > This.Ranges[1]
 }
 
 func (This *Healthcheck) SetStatusSuccess() {
@@ -146,6 +181,10 @@ func (This *Healthcheck) SetStatusWarning() {
 
 func (This *Healthcheck) SetStatusError() {
 	This.Status = HEALTHCHECK_STATUS_ERROR
+}
+
+func (This *Healthcheck) SetStatusTimeout() {
+	This.Status = HEALTHCHECK_STATUS_TIMEOUT
 }
 
 func (This *Healthcheck) GetCurrentTimeInMS() int64 {
