@@ -111,13 +111,13 @@ MIT
 
 ![SS2](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot2.png "Screenshot 2")
 
+**# HEALTHCHECK CHART**
+
+![SS2](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot3.png "Screenshot 3")
+
 **# HEALTHCHECK DASHBOARD - FULL SCREEN**
 
-![SS3](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot3.png "Screenshot 3")
-
-**# HEALTHCHECK DASHBOARD - TABLET**
-
-![SS4](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot4.png "Screenshot 4")
+![SS3](https://github.com/prsolucoes/gohc/raw/master/extras/screenshots/screenshot4.png "Screenshot 4")
 
 **# HEALTHCHECK DASHBOARD - SMARTPHONE**
 
